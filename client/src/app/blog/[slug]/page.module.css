@@ -9,7 +9,7 @@
     width: 100%;
     min-height: 115svh;
     position: relative;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
   
   /* .post__frontmatter img {
@@ -71,7 +71,3 @@
         min-height: 65vh;
     }
   } 
-
-.markdown h2 {
-    font-size: 5em;
-}

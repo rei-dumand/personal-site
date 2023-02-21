@@ -3,7 +3,6 @@ import { Inter } from '@next/font/google'
 import classes from './page.module.css'
 import About from './about/page'
 import Link from 'next/link';
-import { join } from 'path';
 
 import { getAllPosts } from '@/lib/api';
 
@@ -11,7 +10,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const posts = getAllPosts(["slug", "title", "subtitle", "date", "excerpt", "coverImage"])
-  console.log(posts)
 
   return (
 

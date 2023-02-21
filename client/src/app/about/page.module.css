@@ -42,7 +42,7 @@
     mix-blend-mode: difference;
 }
 
-.column__intro p {
+.headline {
     white-space: pre-wrap;
     max-width: 750px;
     font-size: clamp(1em, 6vw, 2em);
@@ -70,6 +70,10 @@
 
 
 @media (max-width: 1000px) {
+    .column__intro {
+        margin-bottom: 2em;
+    }
+
     .about p {
         white-space: normal;
         width: unset;

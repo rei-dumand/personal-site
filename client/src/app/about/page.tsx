@@ -11,17 +11,9 @@ export default function About() {
             <section className={classes.content}>
 
                 <div className={classes.column__intro}>
-                    <p>I’m Rèï, an architecture grad who took a leap into tech and software development.</p>
-                    <p>Currently based in the UK.</p>
-                    <div className={classes.logo}>
-                        <Logo/>
-                        {/* <Image
-                            fill
-                            src={Logo}
-                            alt="SVG alternative logo"
-                            
-                        /> */}
-                    </div>
+                    <p className={classes.headline}>I’m Rèï, an architecture grad who took a leap into tech and software development.</p>
+                    <p className={classes.headline}>Currently based in the UK.</p>
+                    <div className={classes.logo}><Logo/></div>
                 </div>
 
                 <div className={classes.column__contact}>
