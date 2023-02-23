@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import classes from './Navbar.module.css'
+import Image from 'next/image';
+import classes from './Navbar.module.css';
+import NavMenu from 'public/assets/logo/logo-lightmode.svg';
 
 let Navbar = () => {
     const [showNavItems, setShowNavItems] = useState<boolean>(false);
@@ -14,13 +16,12 @@ let Navbar = () => {
 
     return (
         <>
-            <img
+            <NavMenu
                 onClick={handleShowNavItems}
-                src="assets/logo/logo-lightmode.svg"
                 alt="SVG navbar logo"
                 className={classes.navMenu}
             />
-
+            
             <nav className={`
                 ${classes.navItems}
                 ${!hasRun && classes.initial}

@@ -1,22 +1,25 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import classes from './page.module.css'
-import About from './about/page'
+import classes from './page.module.css';
+import About from './about/page';
 import Link from 'next/link';
-
-import { getAllPosts } from '@/lib/api';
-
-const inter = Inter({ subsets: ['latin'] })
+import { allPosts } from 'contentlayer/generated';
+import { compareDesc } from 'date-fns';
 
 export default function Home() {
-  const posts = getAllPosts(["slug", "title", "subtitle", "date", "excerpt", "coverImage"])
+  const posts = allPosts.sort((a, b) => {
+         return compareDesc(new Date(a.date), new Date(b.date))
+     })
 
-  return (
+     posts.map((post, index, posts) => {
+       console.log(post.url)
 
-    <main className={classes.main}>
+     })
+     
+     return (
+       
+       <main className={classes.main}>
 
       {posts.map((post, index, posts) => 
-        (<section className={classes.post__card} key={post.slug}>
+        (<section className={classes.post__card} key={post.url}>
           <video autoPlay loop muted>
             <source src={post.coverImage} />
           </video>
@@ -28,7 +31,7 @@ export default function Home() {
             <h5>{post.date}</h5>
           </div>
 
-          <Link href={`/blog/${post.slug}`} className={classes.blog__button}></Link>
+          <Link href={post.url} className={classes.blog__button}></Link>
         </section>)
 
       )}

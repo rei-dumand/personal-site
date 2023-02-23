@@ -1,15 +1,18 @@
 /** @type {import('next').NextConfig} */
 
-import withMDX from '@next/mdx';
-import remarkFrontmatter from 'remark-frontmatter';
+const { withContentlayer } = require('next-contentlayer');
 
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   experimental: {
-    scrollRestoration: true,
+    // scrollRestoration: true,
     appDir: true,
   },
   reactStrictMode: true,
+  images: {
+    deviceSizes: [82, 110, 140, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    domains: ["picsum.photos", "images.unsplash.com"],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -20,13 +23,5 @@ const nextConfig = {
   },
 };
 
-const mdxConfig = withMDX({
-  extension: /\.(mdx)$/,
-  options: {  
-    providerImportSource: '@mdx-js/react',
-    remarkPlugins: [remarkFrontmatter],
-    rehypePlugins: [],
-  },
-})(nextConfig);
-
-export default mdxConfig;
+module.exports = withContentlayer(nextConfig)
+// export default withContentlayer(nextConfig)

@@ -7,7 +7,7 @@
 .post__frontmatter {
     background-color: rgb(18, 18, 18);
     width: 100%;
-    min-height: 115svh;
+    min-height: clamp(50svh, calc(50svw + 15svh), 115svh);
     position: relative;
     /* cursor: pointer; */
   }
@@ -68,6 +68,6 @@
   
   @media (max-width: 700px) {
     .post__frontmatter {
-        min-height: 65vh;
+        /* min-height: 65vh; */
     }
   } 

@@ -1,5 +1,4 @@
 import classes from './page.module.css';
-import Image from 'next/image';
 import Logo from 'public/assets/logo/logo-concise-lightmode.svg';
 
 export default function About() {

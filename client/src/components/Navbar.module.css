@@ -93,7 +93,7 @@
         z-index: 20;
         top: 20px;
         left: calc(50% - 35px);
-        /* mix-blend-mode: difference; */
+        mix-blend-mode: difference;
         filter: invert();
         opacity: 0.9;
         width: 70px;
