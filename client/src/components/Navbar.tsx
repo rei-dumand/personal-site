@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import classes from './Navbar.module.css';
 import NavMenu from 'public/assets/logo/logo-lightmode.svg';
+import Logo from 'public/assets/logo/logo-concise-lightmode.svg';
 
 let Navbar = () => {
     const [showNavItems, setShowNavItems] = useState<boolean>(false);
@@ -21,16 +21,18 @@ let Navbar = () => {
                 alt="SVG navbar logo"
                 className={classes.navMenu}
             />
-            
+
             <nav className={`
                 ${classes.navItems}
                 ${!hasRun && classes.initial}
                 ${!showNavItems && classes.hidden}
                 ${showNavItems && classes.visible}`
             }>
-                <Link href="/">What I Say</Link>
-                {/* <Link href="/projects">What I Do</Link> */}
-                <Link href="/about">Who I Am</Link>
+                <div className={classes.navbarLeft}>
+                    <Link href="/" className={classes.logo}><Logo /></Link>
+                    <Link href="/projects">Archives</Link>
+                </div>
+                <Link href="/about">About</Link>
             </nav>
         </>
     )

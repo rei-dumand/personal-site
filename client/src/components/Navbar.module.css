@@ -1,3 +1,19 @@
+.logo {
+    display: flex;
+    justify-content: center;
+    filter: invert();
+    background-color: #fff;
+    mix-blend-mode: difference;
+    min-width: 100px;
+    height: 42px;
+    padding: 10px 15px;
+}
+
+.navbarLeft {
+    display: flex;
+    align-items: center;
+}
+
 .navItems {
     position: fixed;
     width: 100%;
@@ -6,16 +22,16 @@
     justify-content: space-between;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: -0.15em;
-    font-size: 2rem;
-    word-spacing: 0.3rem;
+    /* letter-spacing: -0.15em; */
+    font-size: 1.3rem;
+    /* word-spacing: 0.3rem; */
     z-index: 10;
     mix-blend-mode: difference;
     color: #fff;
 }
 
 .navItems a {
-    padding: 20px;
+    padding: 10px 15px;
 }
 
 .navMenu__holder {
