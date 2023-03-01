@@ -29,7 +29,7 @@ export default function Post({ params }: { params: { slug: string } }) {
                 </video>
 
                 <div className={classes.post__card__text__container}>
-                    <h3>hello</h3>
+                    <h3>.</h3>
                     <h2>{post?.title}</h2>
                     <h4>{post?.subtitle}</h4>
                     <h5>{post?.date}</h5>

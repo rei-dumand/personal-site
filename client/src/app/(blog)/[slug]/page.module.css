@@ -35,7 +35,7 @@
   }
   
   .post__frontmatter h2 {
-    font-size: clamp(2em, 12vw, 12em);
+    font-size: clamp(2em, 10vw, 12em);
     margin-left: -0.3vw;
     letter-spacing: -0.05em;
     mix-blend-mode: difference;

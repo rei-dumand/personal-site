@@ -99,8 +99,9 @@
     }
 
     .h2 {
-        font-size: clamp(1.5em, 6vw, 3em);
-        margin: unset;
+        font-size: clamp(1.5em, 10vw, 4em);
+        /* margin: 0 auto 2rem auto; */
+        /* margin: unset; */
         padding: 0 16px;
     }
 

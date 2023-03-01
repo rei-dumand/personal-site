@@ -7,7 +7,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
     appDir: true,
-    typedRoutes: true
+    // typedRoutes: true
   },
   reactStrictMode: true,
   images: {
