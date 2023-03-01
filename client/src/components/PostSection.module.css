@@ -22,7 +22,18 @@
     margin: 0 auto 1.2em auto;
     font-size: 1.45em;
     line-height: 1.7;
+}
 
+.li {
+    width: 800px;
+    margin: 0 auto;
+    font-size: 1.45em;
+    line-height: 1.7;
+    list-style-position: inside;
+}
+
+.li:last-child {
+    margin: 0 auto 1.2em auto;
 }
 
 .Image {
@@ -38,8 +49,10 @@
     margin: 4em auto;
 }
 
-
-.Image__Background {
+.ImageDot__Container {
+    width: 100%;
+    height: inherit;
+    padding: 4em 0;
     opacity: 1;
     background-image:
         radial-gradient(#d0d0d0 1.25px, #ffffff00 1.25px),
@@ -48,8 +61,22 @@
     background-position: 0 0, 12.5px 12.5px;
 }
 
+.ImageDot__Background {
+    max-width: 800px;
+    margin: 0em auto;
+}
+
 @media (max-width: 832px) {
     .Image__Container {
+        margin: 2em 16px;
+    }
+
+    .ImageDot__Container {
+        background-image: unset;
+        padding: unset;
+    }
+
+    .ImageDot__Background {
         margin: 2em 16px;
     }
 
@@ -78,6 +105,13 @@
     }
 
     .p {
+        width: 100%;
+        font-size: clamp(1em, 3vw, 1.5em);
+        /* line-height: clamp(1em, 3vw, 1.5em); */
+        padding: 0 16px;
+    }
+
+    .li {
         width: 100%;
         font-size: clamp(1em, 3vw, 1.5em);
         /* line-height: clamp(1em, 3vw, 1.5em); */

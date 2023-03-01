@@ -29,7 +29,7 @@ let Navbar = () => {
                 ${showNavItems && classes.visible}`
             }>
                 <Link href="/">What I Say</Link>
-                <Link href="/projects">What I Do</Link>
+                {/* <Link href="/projects">What I Do</Link> */}
                 <Link href="/about">Who I Am</Link>
             </nav>
         </>

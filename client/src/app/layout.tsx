@@ -2,8 +2,22 @@ import './globals.css'
 import NavDesktop from '@/components/Navbar'
 import About from './about/page'
 import { Inter } from '@next/font/google'
+import type { Metadata } from 'next';
 const inter = Inter({ subsets: ['latin'] })
 
+export const metadata: Metadata = {
+  title: 'Rèï - Personal Portfolio',
+  description: 'A personal portfolio & blog by Rèï',
+  authors: [{name: 'Rèï Dumand'}],
+  icons: {
+    icon: '/favicon.png'
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1
+  }
+}
 
 export default function RootLayout({
   children,
@@ -12,11 +26,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
       <body className={inter.className}>
         <header>
           <NavDesktop />

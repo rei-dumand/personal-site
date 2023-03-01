@@ -1,15 +1,28 @@
+// "use client"
 import classes from './page.module.css';
-import Link from 'next/link';
 import { allPosts } from 'contentlayer/generated';
 import { PostSection } from '@/components/PostSection';
+// import {useEffect, useState} from 'react';
+// import {usePathname} from 'next/navigation';
 
-export default async function Post({ params }: { params: { slug: string } }) {
+export default function Post({ params }: { params: { slug: string } }) {
     let {slug} = params;
-    const post = allPosts.find((post) => post.slugAsParams === slug)
+    const post = allPosts.find((post) => post.slugAsParams === slug);
+
+    // console.log(window)
+
+    // let [scrollReset, didScrollReset] = useState(false);
+    
+    // // const pathname = usePathname()
+    // useEffect(() => {
+    //     // scrollReset ? window.scroll(0, 0) : undefined;
+    //     window.scroll(0,0)
+    //     // didScrollReset(true)
+    // },[])
   
     return (
+        // scrollReset &&
         <main className={classes.main}>
-
             <section className={classes.post__frontmatter}>
                 <video autoPlay loop muted>
                     <source src={post?.coverImage} />

@@ -6,6 +6,10 @@
   min-height: 100vh;
 }
 
+.footer {
+  width: 100%;
+}
+
 .blog__button {
   position: absolute;
   z-index: 5;

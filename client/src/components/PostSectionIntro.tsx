@@ -8,14 +8,22 @@ type props = {
         type: Function,
         props: {
             children: String
-          }
         }
+    }
 }
 
 export function PostSectionIntro(props: props) {
+    // console.log(props.children)
     return (
         <div
-            className={`${Classes["intro"]} ${inter.className}`}
-            {...props.children.props} />
+            className={`${Classes["intro"]} ${inter.className}`}>
+            <span>
+                {/* {props.children.map((item, index) => {
+                    console.log(index, item)
+                    return <h4 key={index}>{item.props.children}</h4>
+                })} */}
+                {props.children.props.children}
+            </span>
+        </div>
     )
 }

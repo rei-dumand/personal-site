@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "type":"commonjs",
+  "type": "commonjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -20,11 +20,12 @@
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "install": "^0.13.0",
-    "next": "13.1.6",
+    "next": "^13.2.3-canary.1",
     "next-contentlayer": "^0.3.0",
     "npm": "^9.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.31.3",
     "typescript": "4.9.5"
   }
 }

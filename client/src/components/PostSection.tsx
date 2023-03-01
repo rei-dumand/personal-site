@@ -1,11 +1,9 @@
-// "use client"
 import * as React from "react"
 import { useMDXComponent as MDXComponent } from "next-contentlayer/hooks"
 import Classes from './PostSection.module.css';
 import { Bitter, Inter } from '@next/font/google';
 import { PostSectionIntro as Intro } from './PostSectionIntro';
 import Image from 'next/image';
-// import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ['latin'] })
 const PTSerif = Bitter({ weight: 'variable', style: 'normal', subsets: ['latin'] })
@@ -23,6 +21,11 @@ const components = {
       {...props}
     />
   ),
+  li: ({ ...props }) => (
+    <li
+      className={`${Classes["li"]}`}
+      {...props}
+    />),
   Intro: Intro,
   Image: ({ ...props }) => {
     // console.log(props)
@@ -33,16 +36,20 @@ const components = {
           <Image
             className={Classes["Image"]}
             sizes="(max-width: 300px) 100vw, (max-width: 500px) 100vw, 800px,"
+            // placeholder="blur"
             {...props} />}
       </div>
       //</div>
     )
   },
   ImageDot: ({ ...props }) => (
-    <div className={Classes["Image__Background"]} style={{ width: '100%', height: 'clamp(2em, 30vw, 100vh)', margin: '3em 0' }}>
-      <div style={{ position: 'relative', height: '100%', maxWidth: '800px', margin: 'auto', }}>
+    <div className={Classes["ImageDot__Container"]}>
+      <div className={Classes["ImageDot__Background"]}>
         {//@ts-expect-error}
-          <Image style={{ padding: '2em 0 2em 0', objectFit: 'cover' }} {...props} />}
+          <Image
+            className={Classes["Image"]}
+            sizes="(max-width: 300px) 100vw, (max-width: 500px) 100vw, 800px,"
+            {...props} />}
       </div>
     </div>
   ),
@@ -54,31 +61,12 @@ interface MdxProps {
 }
 
 export function PostSection({ code }: MdxProps) {
-
   const Component = code ? MDXComponent(code) : undefined;
-  // const [Component, setComponent] = useState<React.ComponentType<any>>()
-
-  // useEffect(() => {
-  //   if (code) {
-  //     setComponent(() => MDXComponent(code))
-  //   }
-  // }, [code])
 
 
   return (
     <div className={`${Classes["container"]} ${PTSerif.className}`}>
       {Component && <Component components={components} />}
     </div>
-    // code
-    //   ?
-    //   (() => {
-    //     return (
-    //       <div className={`${Classes["container"]} ${PTSerif.className}`}>
-    //         {Component && <Component components={components} />}
-    //       </div>
-    //     )
-    //   })
-    //   :
-    //   <></>
   )
 }

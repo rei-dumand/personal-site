@@ -5,8 +5,9 @@ const { withContentlayer } = require('next-contentlayer');
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   experimental: {
-    // scrollRestoration: true,
+    scrollRestoration: true,
     appDir: true,
+    typedRoutes: true
   },
   reactStrictMode: true,
   images: {
