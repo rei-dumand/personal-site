@@ -65,7 +65,7 @@ export function PostSection({ code }: MdxProps) {
 
 
   return (
-    <div className={`${Classes["container"]} ${PTSerif.className}`}>
+    <div className={`${Classes["container"]} ${inter.className}`}>
       {Component && <Component components={components} />}
     </div>
   )

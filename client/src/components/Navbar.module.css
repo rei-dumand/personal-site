@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     filter: invert();
-    background-color: #fff;
+    /* background-color: #fff; */
     mix-blend-mode: difference;
     min-width: 100px;
     height: 42px;
@@ -39,10 +39,11 @@
 }
 
 .navMenu {
+    opacity: 0;
     display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     .navItems {
         backdrop-filter: blur(10px);
         z-index: 15;
@@ -104,6 +105,7 @@
     }
 
     .navMenu {
+        opacity: 1;
         display: block;
         position: fixed;
         z-index: 20;

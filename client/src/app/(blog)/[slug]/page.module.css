@@ -1,73 +1,85 @@
 .main {
-    background-color: rgb(247, 247, 247);
-    width: 100svw;
-    min-height: 100svh;
+  background-color: rgb(247, 247, 247);
+  width: 100svw;
+  min-height: 100svh;
 }
 
 .post__frontmatter {
-    background-color: rgb(18, 18, 18);
-    width: 100%;
-    min-height: clamp(50svh, calc(50svw + 15svh), 115svh);
-    position: relative;
-    /* cursor: pointer; */
+  background-color: rgb(18, 18, 18);
+  width: 100%;
+  min-height: clamp(50svh, calc(50svw + 15svh), 115svh);
+  position: relative;
+  /* justify-content: center; */
+  align-items: center;
+  display: flex;
+}
+
+.post__frontmatter video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.text__container {
+  margin-left: clamp(50px, 7vw, 150px);
+  margin-bottom: 2em;
+  animation: fadeUp 500ms ease-in 250ms normal forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translate3d(0, 20px, 0);
   }
-  
-  /* .post__frontmatter img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-  } */
-  
-  .post__frontmatter video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
   }
-  
-  .post__card__text__container {
-    position: absolute;
-    top: 30%;
-    left: 5%;
-    /* display: flex;
-    flex: auto; */
+}
+
+.post__frontmatter h2 {
+  font-size: clamp(2em, 10vw, 12em);
+  margin-left: -0.3vw;
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter h3 {
+  font-size: clamp(1em, 6vw, 8em);
+  font-weight: 200;
+  line-height: 0.7em;
+  margin-left: -0.3vw;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter h4 {
+  font-size: clamp(1em, 6vw, 4em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter h5 {
+  font-weight: 400;
+  font-size: clamp(0.7em, 4vw, 2em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter p {
+  font-weight: 400;
+  font-size: clamp(0.7em, 4vw, 2em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .text__container {
+    margin-left: 16px;
   }
-  
-  .post__frontmatter h2 {
-    font-size: clamp(2em, 10vw, 12em);
-    margin-left: -0.3vw;
-    letter-spacing: -0.05em;
-    mix-blend-mode: difference;
-    color: #fff;
-  }
-  
-  .post__frontmatter h3 {
-    font-size: clamp(1em, 6vw, 8em);
-    font-weight: 200;
-    line-height: 0.7em;
-    margin-left: -0.3vw;
-    mix-blend-mode: difference;
-    color: #fff;
-  }
-  
-  .post__frontmatter h4 {
-    font-size: clamp(1em, 6vw, 4em);
-    letter-spacing: -0.05em;
-    mix-blend-mode: difference;
-    color: #fff;
-  }
-  
-  .post__frontmatter h5 {
-    font-weight: 400;
-    font-size: clamp(0.7em, 4vw, 2em);
-    letter-spacing: -0.05em;
-    mix-blend-mode: difference;
-    color: #fff;
-  }
-  
-  @media (max-width: 700px) {
-    .post__frontmatter {
-        /* min-height: 65vh; */
-    }
-  } 
+}

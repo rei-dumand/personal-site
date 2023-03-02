@@ -15,11 +15,7 @@ let Footer = () => {
 
     return (
         <div className={classes.footerItems}>
-            <div className={classes.viewSwitch}>
-                <button className={classes.viewSwitchIcon}>Archive</button>
-
-            </div>
-            <button>It's me</button>
+            <Link className={classes.archiveButton} href="/archive">Grid View</Link>
         </div>
     )
 }

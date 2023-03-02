@@ -4,7 +4,7 @@
     justify-content: center;
     min-height: 100vh;
     background-color: rgb(33, 30, 44);
-    padding: 100px 5%;
+    padding: 100px 10%;
 }
 
 .about h1 {
@@ -17,7 +17,7 @@
 
 .content {
     gap: 10em;
-    width: 85%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

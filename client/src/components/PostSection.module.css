@@ -1,34 +1,33 @@
 .container {
     margin: 0 auto;
-    /* width: 800px; */
 }
 
 .intro {
     font-size: 2em;
     font-weight: 400;
     line-height: 1.5;
-    max-width: 800px;
+    max-width: var(--md-section-max-width);
     margin: 32px auto;
 }
 
 .h2 {
     margin: 0 auto 2rem auto;
-    width: 800px;
+    width: var(--md-section-max-width);
     font-size: 4em;
 }
 
 .p {
     width: 800px;
     margin: 0 auto 1.2em auto;
-    font-size: 1.45em;
-    line-height: 1.7;
+    font-size: var(--md-paragraph-font-size);
+    line-height: var(--md-paragraph-font-line-height);
 }
 
 .li {
     width: 800px;
     margin: 0 auto;
-    font-size: 1.45em;
-    line-height: 1.7;
+    font-size: var(--md-paragraph-font-size);
+    line-height: var(--md-paragraph-font-line-height);
     list-style-position: inside;
 }
 

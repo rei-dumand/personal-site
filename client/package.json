@@ -20,7 +20,7 @@
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "install": "^0.13.0",
-    "next": "^13.2.3-canary.1",
+    "next": "^13.2.3",
     "next-contentlayer": "^0.3.0",
     "npm": "^9.5.0",
     "react": "18.2.0",

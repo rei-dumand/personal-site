@@ -1,0 +1,150 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 800px;
+    cursor: crosshair;
+    pointer-events: none;
+    animation: activateCursor 0ms 1000ms linear forwards;
+}
+
+@keyframes activateCursor {
+    100% {
+        pointer-events: all;
+    }
+}
+
+.table__link {
+    display: block;
+    position: relative;
+    width: 100%;
+    animation: fadeIn 250ms 500ms linear forwards;
+    opacity: 0;
+
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: translate3D(0, 10px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3D(0, 0px, 0);
+    }
+}
+
+.tr {
+    transition: all 500ms ease-out;
+}
+
+.table a {
+    cursor: crosshair
+}
+
+.tr td {
+    padding: 5px 0;
+}
+
+.tr:hover {
+    background-color: rgb(243, 243, 243);
+    box-shadow: 10px 0 0 rgb(243, 243, 243), -10px 0 0 rgb(243, 243, 243);
+    color: #121212
+}
+
+.tr:hover * {
+    color: #121212
+}
+
+.table tr {
+    position: relative;
+}
+
+.table:first-child {
+    position: relative;
+}
+
+.table tr:before,
+.table:first-child:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    border-bottom: 2px solid #ccc;
+    animation: border_anim 500ms ease-in-out forwards;
+}
+
+.table:first-child:before {
+    top: 0;
+}
+
+.table tr:before {
+    bottom: 0;
+}
+
+@keyframes border_anim {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.table__title {
+    min-width: 400px;
+}
+
+.table__subtitle {
+    min-width: 200px;
+}
+
+.table__id {
+    min-width: 50px;
+}
+
+.table__date {
+    text-align: end;
+    width: 100%;
+}
+
+
+.table h2 {
+    font-size: clamp(2em, 1vw, 12em);
+    /* margin-left: -0.3vw; */
+    letter-spacing: -0.05em;
+    mix-blend-mode: difference;
+    color: #fff;
+}
+
+.table h3 {
+    font-size: clamp(1em, 1vw, 8em);
+    font-weight: 200;
+    line-height: 0.7em;
+    /* margin-left: -0.3vw; */
+    mix-blend-mode: difference;
+    color: #fff;
+}
+
+.table h4 {
+    font-size: clamp(1em, 1vw, 4em);
+    letter-spacing: -0.05em;
+    mix-blend-mode: difference;
+    color: #fff;
+}
+
+.table h5 {
+    font-weight: 400;
+    font-size: clamp(0.7em, 1vw, 2em);
+    letter-spacing: -0.05em;
+    mix-blend-mode: difference;
+    color: #fff;
+}

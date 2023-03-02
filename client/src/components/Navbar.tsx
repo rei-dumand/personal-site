@@ -4,8 +4,12 @@ import Link from 'next/link';
 import classes from './Navbar.module.css';
 import NavMenu from 'public/assets/logo/logo-lightmode.svg';
 import Logo from 'public/assets/logo/logo-concise-lightmode.svg';
+import {useSearchParams} from 'next/navigation';
 
-let Navbar = () => {
+let Navbar = (props : any) => {
+    const {slug} = props
+    console.log(slug)
+
     const [showNavItems, setShowNavItems] = useState<boolean>(false);
     const [hasRun, setHasRun] = useState<boolean>(false);
 
@@ -30,7 +34,7 @@ let Navbar = () => {
             }>
                 <div className={classes.navbarLeft}>
                     <Link href="/" className={classes.logo}><Logo /></Link>
-                    <Link href="/projects">Archives</Link>
+                    {/* <Link href="/archive">Archive</Link> */}
                 </div>
                 <Link href="/about">About</Link>
             </nav>
