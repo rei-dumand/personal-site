@@ -1,4 +1,4 @@
-import About from "../about/page"
+import About from "../(home)/about/page"
 import classes from './page.module.css'
 
 export default function Projects() {

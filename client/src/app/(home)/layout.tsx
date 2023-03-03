@@ -13,7 +13,6 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
                 <Navbar />
             </header>
             {children}
-            <Footer></Footer>
         </>
 
     )

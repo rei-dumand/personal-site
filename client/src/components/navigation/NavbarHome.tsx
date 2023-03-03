@@ -8,7 +8,6 @@ import {useSearchParams} from 'next/navigation';
 
 let Navbar = (props : any) => {
     const {slug} = props
-    console.log(slug)
 
     const [showNavItems, setShowNavItems] = useState<boolean>(false);
     const [hasRun, setHasRun] = useState<boolean>(false);

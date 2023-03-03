@@ -1,11 +1,37 @@
 .main {
+  overflow-y: hidden;
+  overflow-x: hidden;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: #121212;
+  z-index: 1;
+  
 }
+
+.blog__grid {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 600%;
+  top: -400%;
+  left: 0%;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.1;
+  background-image: 
+  linear-gradient(#ffffff 3px, transparent 3px), linear-gradient(90deg, #ffffff 3px, transparent 3px), 
+  linear-gradient(#ffffffa0 2px, transparent 2px), linear-gradient(90deg, #ffffffa0 2px, transparent 2px), 
+  linear-gradient(#ffffff6a 1px, transparent 1px), linear-gradient(90deg, #ffffff6a 1px, transparent 1px);
+  background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transition: all 400ms
+}
+
+/* background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */
 
 .cursorText {
   position: fixed;
@@ -20,6 +46,26 @@
   font-size: 1.1em;
 }
 
+.cursorText::before {
+  content:'';
+  position: absolute;
+  transform: translate(calc(-100vw - 8px), -10px);
+  width: 200vw;
+  height: 1px;
+  border-bottom: 2px dashed #fff;
+}
+
+.cursorText::after {
+  content:'';
+  position: absolute;
+  top: -115vh;
+  left: 0;
+  border-right: 2px dashed #fff;
+  transform: translate(calc(-14px), calc(-8px));
+  height: 115vh;
+  width: 1px;
+}
+
 .cursorText :first-child {
   font-size: 1.5em;
   font-weight: 700;
@@ -29,12 +75,15 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
 
 .footer {
+  position: relative;
+  z-index: 3;
   width: 100%;
 }
 
@@ -43,18 +92,15 @@
   z-index: 5;
   width: 100%;
   height: 100%;
-  cursor: crosshair;
+  cursor: none;
 }
 
 .post__card {
-  background-color: rgb(18, 18, 18);
-  /* background-color: black; */
-  /* z-index: 1; */
-  width: 100%;
-  min-height: clamp(50svh, calc(75svw + 15svh), 115svh);
   position: relative;
+  width: 100%;
+  background-color: rgb(18, 18, 18);
+  min-height: clamp(50svh, calc(75svw + 15svh), 115svh);
   cursor: pointer;
-  /* animation: fadeIn 500ms cubic-bezier(0.47, 0, 0.745, 0.715) 0s 1 forwards; */
 }
 
 .post__card img {

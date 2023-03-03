@@ -9,10 +9,8 @@ const inter = Inter({ subsets: ['latin'] })
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <header>
-                <Navbar />
-            </header>
             {children}
+            <Footer></Footer>
         </>
 
     )
