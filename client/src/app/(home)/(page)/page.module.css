@@ -28,7 +28,7 @@
   background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;;
   pointer-events: none;
   mix-blend-mode: difference;
-  transition: all 400ms
+  /* transition: all 400ms */
 }
 
 /* background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */

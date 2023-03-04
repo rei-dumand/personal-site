@@ -38,12 +38,15 @@
 .Image {
     position: relative !important;
     object-fit: contain !important;
-    max-width: 100% !important;
+    width: unset !important;
     max-height: 60vh !important;
     height: unset !important;
 }
 
 .Image__Container {
+    position: relative;
+    display: flex;
+    justify-content: center;
     max-width: 800px;
     margin: 4em auto;
 }
@@ -61,8 +64,18 @@
 }
 
 .ImageDot__Background {
+    position: relative;
     max-width: 800px;
     margin: 0em auto;
+}
+
+.Image__Active {
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: rgb(210, 210, 210);
 }
 
 @media (max-width: 832px) {

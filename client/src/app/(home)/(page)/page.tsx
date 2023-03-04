@@ -9,8 +9,10 @@ import { useState, useEffect, useRef } from 'react';
 export default function Home() {
   const [scrollReset, didScrollReset] = useState(false);
   const [cursorShown, isCursorShown] = useState(false);
-  const [clientScrollY, setClientScrollY] = useState<number | null>(0);
-  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
+  const [scrollY, setScrollY] = useState<number>(0);
+  const prevScrollY = useRef<number>(0);
+  const [mousePositionDocument, setmousePositionDocument] = useState({ x: null, y: null });
+  const [mousePositionScreen, setmousePositionScreen] = useState({ x: null, y: null });
   const [cursorTitle, setCursorTitle] = useState<string | null>(null);
   const [cursorSubtitle, setCursorSubtitle] = useState<string | null>(null);
   const [cursorDate, setCursorDate] = useState<string | null>(null);
@@ -29,12 +31,18 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const scroll = (e: any) => {
-      setClientScrollY(Math.floor(window.scrollY))
+    const scroll = () => {
+      prevScrollY.current = scrollY;
+      setScrollY(Math.floor(window.scrollY))
+      console.log(scrollY, " ", prevScrollY)
     }
 
     const mouseMove = (e: any) => {
-      setMousePosition({
+      setmousePositionDocument({
+        x: e.pageX,
+        y: e.pageY
+      })
+      setmousePositionScreen({
         x: e.clientX,
         y: e.clientY
       })
@@ -45,7 +53,6 @@ export default function Home() {
     return () => {
       window.removeEventListener("mousemove", mouseMove)
       window.removeEventListener("scroll", scroll)
-
     }
   })
 
@@ -57,12 +64,12 @@ export default function Home() {
     scrollReset &&
     <>
       <main className={classes.main} ref={mainRef}>
-        {mainHeight && clientScrollY !== null &&
+        {mainHeight && scrollY !== null &&
           <div
             className={classes.blog__grid}
             style={{
               height: mainHeight * 8,
-              transform: `translate3d(${-(mousePosition.x ? mousePosition.x * 2 : 0)}px, ${-(mousePosition.y ? mousePosition.y * 2 : 0) - (clientScrollY * 2)}px, 0)`
+              transform: `translate3d(${-(mousePositionScreen.x ? mousePositionScreen.x / 2 : 0)}px, ${-(mousePositionScreen.y ? mousePositionScreen.y / 2 : 0) - (scrollY * 2)}px, 0)`
             }}
           ></div>
         }
@@ -76,8 +83,8 @@ export default function Home() {
 
           return (
             <section className={classes.post__card} key={post.url}>
-              <video autoPlay loop muted>
-                <source src={post.coverImage} />
+              <video autoPlay loop muted preload='true'>
+                <source src={post.coverImage}/>
               </video>
 
               <div className={classes.post__card__text__container}>
@@ -106,15 +113,15 @@ export default function Home() {
               {cursorShown && cursorTitle && cursorSubtitle && cursorDate && cursorID &&
                 <section
                   className={classes.cursorText}
-                  style={{ transform: `translate(calc(${mousePosition.x}px + 12px), calc(${mousePosition.y}px + 8px))` }}
+                  style={{ transform: `translate(calc(${mousePositionScreen.x}px + 12px), calc(${mousePositionScreen.y}px + 8px))` }}
                 >
 
                   <div>{cursorTitle}</div>
                   <div>{cursorSubtitle}</div>
                   <div>{cursorDate}</div>
                   <div>ID: {cursorID}</div>
-                  <div>{`x: ${mousePosition.x}`}</div>
-                  <div>{`y: ${mousePosition.y}`}</div>
+                  <div>{`x: ${mousePositionDocument.x}`}</div>
+                  <div>{`y: ${mousePositionDocument.y}`}</div>
 
                   {/* <h2>{cursorTitle}</h2>
                   <h3>00{posts.length - index}</h3>

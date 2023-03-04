@@ -4,6 +4,7 @@ import Classes from './PostSection.module.css';
 import { Bitter, Inter } from '@next/font/google';
 import { PostSectionIntro as Intro } from './PostSectionIntro';
 import Image from 'next/image';
+import ImageSwitch from '@/components/BlogLayout/ImageSwitch';
 
 const inter = Inter({ subsets: ['latin'] })
 const PTSerif = Bitter({ weight: 'variable', style: 'normal', subsets: ['latin'] })
@@ -53,6 +54,7 @@ const components = {
       </div>
     </div>
   ),
+  ImageSwitch: ImageSwitch,
   // Intro: ({...props}) => <span style={{color: 'blue'}} {...props}/>
 }
 
