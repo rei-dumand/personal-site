@@ -9,7 +9,16 @@
   min-height: 100vh;
   background-color: #121212;
   z-index: 1;
-  
+}
+
+.blog__list {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .blog__grid {
