@@ -19,10 +19,10 @@ export default function Home() {
   const [cursorID, setCursorID] = useState<string | null>(null);
   const mainRef = useRef<HTMLDivElement | null>(null);
   const [mainHeight, setMainHeight] = useState<number | undefined>(undefined);
-  const [scrollIncrement, setScrollIncrement] = useState(0);
+  // const [scrollIncrement, setScrollIncrement] = useState(0);
   const [scrollTrigger, setScrollTriger] = useState(false);
   const [scrollDirection, setScrollDirection] = useState<string | null>(null)
-  // const scrollIncrement = useRef<number>(0);
+  const scrollIncrement = useRef<number>(0);
 
   // const [scrollY, setScrollY] = useState<number>(0);
   // const [prevScrollY, setPrevScrollY] = useState<number>(0);
@@ -34,7 +34,7 @@ export default function Home() {
   const blogList = useRef<HTMLDivElement>(null);
   const postCardHeight = useRef<number | null>(null);
 
-  
+
   // const scroll = () => {
   //   // prevScrollY.current = scrollY;
   //   // setPrevScrollY(scrollY)
@@ -72,35 +72,88 @@ export default function Home() {
     };
   }, [])
 
+  let scrollTimeout: string | number | NodeJS.Timeout | undefined = undefined;
+  let wheelTimeout: string | number | NodeJS.Timeout | undefined = undefined;
+
+  // const [flag, setFlag]= useState<boolean>(true);
+  const wheelFlag = useRef<boolean>(true);
+  const direction = useRef<string | null>(null)
+
   useEffect(() => {
-    console.log("running")
-    let scrollTimeout : string | number | NodeJS.Timeout | undefined = undefined;
-    let scrollEvent = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(function() {
-        console.log("scroll ended")
-        if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "down") {
-          setScrollIncrement(Math.min(scrollIncrement + 1, posts.length - 1));
+ 
+    const wheel = (e: any) => {
+      e.preventDefault();
+      if (wheelFlag.current) {
+        // console.log("START scrolling")
+        if (e.deltaY > 0 && scrollIncrement.current < posts.length) {
+          window.scroll(0, window.outerHeight * Math.min(scrollIncrement.current + 1, posts.length))
+          scrollIncrement.current = (Math.min(scrollIncrement.current + 1, posts.length))
+          direction.current = "down";
+          wheelFlag.current = false
         }
-        if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "up") {
-          setScrollIncrement(Math.max(scrollIncrement - 1, 0));
+        else if (e.deltaY < 0 && scrollIncrement.current > 0) {
+          direction.current = "up";
+          window.scroll(0, window.outerHeight * Math.max(scrollIncrement.current - 1, 0))
+          scrollIncrement.current = (Math.max(scrollIncrement.current - 1, 0))
+
+          wheelFlag.current = false
         }
-  }, 100);
-}
-      window.addEventListener('scroll', scrollEvent);
-
-    if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "down") {
-      console.log(Math.min(scrollIncrement + 1, posts.length - 1));
-      console.log('posts ', posts.length - 1) 
-      blogList.current.children[Math.min(scrollIncrement + 1, posts.length - 1)].scrollIntoView({behavior: "smooth", block: "center"})
+        // console.log(direction.current)
+      };
+      clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(function () {
+        // console.log("END wheel ended")
+        wheelFlag.current = true;
+      }, 300)
     }
-    if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "up") {
-      console.log(Math.max(scrollIncrement - 1, 0)); 
-      blogList.current.children[Math.max(scrollIncrement - 1, 0)].scrollIntoView({behavior: "smooth", block: "center"})
-    }
+     
 
-    return () => {window.removeEventListener('scroll', scrollEvent)}
-  },[scrollTrigger, scrollDirection, setScrollIncrement])
+    // const scrollEvent = (e : any) => {
+    //   e.preventDefault();
+    //   clearTimeout(scrollTimeout);
+    //   scrollTimeout = setTimeout(function () {
+    //     console.log("END scroll ended")
+    //     wheelFlag.current = true;
+    //   }, 100)
+    // }
+
+
+    window.addEventListener("wheel", wheel, {passive: false})
+    // window.addEventListener('scroll', scrollEvent, {passive: false});
+    return () => {
+      window.removeEventListener("wheel", wheel)
+      // window.removeEventListener('scroll', scrollEvent)
+    }
+  }, [scrollIncrement.current, wheelFlag.current])
+
+  //   useEffect(() => {
+  //     console.log("running")
+  //     let scrollEvent = () => {
+  //       clearTimeout(scrollTimeout);
+  //       scrollTimeout = setTimeout(function() {
+  //         console.log("scroll ended")
+  //         if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "down") {
+  //           setScrollIncrement(Math.min(scrollIncrement + 1, posts.length - 1));
+  //         }
+  //         if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "up") {
+  //           setScrollIncrement(Math.max(scrollIncrement - 1, 0));
+  //         }
+  //   }, 100);
+  // }
+  //       window.addEventListener('scroll', scrollEvent);
+
+  //     if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "down") {
+  //       console.log(Math.min(scrollIncrement + 1, posts.length - 1));
+  //       console.log('posts ', posts.length - 1) 
+  //       blogList.current.children[Math.min(scrollIncrement + 1, posts.length - 1)].scrollIntoView({behavior: "smooth", block: "center"})
+  //     }
+  //     if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "up") {
+  //       console.log(Math.max(scrollIncrement - 1, 0)); 
+  //       blogList.current.children[Math.max(scrollIncrement - 1, 0)].scrollIntoView({behavior: "smooth", block: "center"})
+  //     }
+
+  //     return () => {window.removeEventListener('scroll', scrollEvent)}
+  //   },[scrollTrigger, scrollDirection, setScrollIncrement])
 
   useEffect(() => {
     // console.log(prevScrollY.current, scrollY.current)
@@ -116,31 +169,31 @@ export default function Home() {
       return clearInterval(interval)
     }
 
-    let wheelTimeout: string | number | NodeJS.Timeout | undefined = undefined;
+    // let wheelTimeout: string | number | NodeJS.Timeout | undefined = undefined;
 
-    const wheel = (e: any) => {
-      // clearTimeout(wheelTimeout)
+    // const wheel = (e: any) => {
+    //   // clearTimeout(wheelTimeout)
 
-      // wheelTimeout = setTimeout(() => {
-        if (scrollIncrement !== null && postCardHeight && postCardHeight.current) {
-          if (e.deltaY > 0) {
-            // setScrollIncrement(Math.min(scrollIncrement + 1, posts.length - 1));
-            setScrollTriger(!scrollTrigger)
-            setScrollDirection("down")
-            // console.log(scrollIncrement)
-            // console.log(scrollIncrement.current * postCardHeight.current)
-            // window.scroll(0, scrollIncrement.current * postCardHeight.current)
-          } else {
-            // setScrollIncrement(Math.max(scrollIncrement - 1, 0));
-            setScrollTriger(!scrollTrigger)
-            setScrollDirection("up")
-            // console.log(scrollIncrement)
-            // console.log(scrollIncrement.current * postCardHeight.current)
-            // window.scroll(0, scrollIncrement.current * postCardHeight.current)
-          }
-        }
-      // }, 300)
-    }
+    //   // wheelTimeout = setTimeout(() => {
+    //     if (scrollIncrement !== null && postCardHeight && postCardHeight.current) {
+    //       if (e.deltaY > 0) {
+    //         // setScrollIncrement(Math.min(scrollIncrement + 1, posts.length - 1));
+    //         setScrollTriger(!scrollTrigger)
+    //         setScrollDirection("down")
+    //         // console.log(scrollIncrement)
+    //         // console.log(scrollIncrement.current * postCardHeight.current)
+    //         // window.scroll(0, scrollIncrement.current * postCardHeight.current)
+    //       } else {
+    //         // setScrollIncrement(Math.max(scrollIncrement - 1, 0));
+    //         setScrollTriger(!scrollTrigger)
+    //         setScrollDirection("up")
+    //         // console.log(scrollIncrement)
+    //         // console.log(scrollIncrement.current * postCardHeight.current)
+    //         // window.scroll(0, scrollIncrement.current * postCardHeight.current)
+    //       }
+    //     }
+    //   // }, 300)
+    // }
 
     const mouseMove = (e: any) => {
       setmousePositionDocument({
@@ -154,12 +207,12 @@ export default function Home() {
     }
 
     window.addEventListener("mousemove", mouseMove)
-    window.addEventListener("wheel", wheel)
+    // window.addEventListener("wheel", wheel)
     // window.addEventListener("scroll", scroll)
 
     return () => {
       window.removeEventListener("mousemove", mouseMove)
-      window.removeEventListener("wheel", wheel)
+      // window.removeEventListener("wheel", wheel)
       // window.removeEventListener("scroll", scroll)
     }
   })

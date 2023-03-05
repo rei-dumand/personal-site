@@ -19,6 +19,7 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
+  /* scroll-snap-type: y mandatory; */
 }
 
 .blog__grid {
@@ -110,6 +111,7 @@
   background-color: rgb(18, 18, 18);
   min-height: clamp(50svh, calc(75svw + 15svh), 115svh);
   cursor: pointer;
+  /* scroll-snap-align: center; */
 }
 
 .post__card img {
