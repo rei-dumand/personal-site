@@ -21,6 +21,7 @@ export default function Post({ params }: { params: { slug: string } }) {
                 <video autoPlay loop muted>
                     <source src={post?.coverImage} />
                 </video>
+                <div className={classes.background__grid}></div>
 
                 <div className={classes.text__container}>
                     <h3>{postID}</h3>

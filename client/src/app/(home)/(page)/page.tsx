@@ -2,69 +2,14 @@
 import classes from './page.module.css';
 import About from '@/app/(home)/about/page';
 import Link from 'next/link';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import getAllPosts from './helpers/getAllPosts';
-import useThrottle from './helpers/useThrottle';
-import { throttle } from 'lodash';
-import { debounce } from 'lodash';
 
 export default function Home() {
-  const [scrollReset, didScrollReset] = useState(false);
-  const [cursorShown, isCursorShown] = useState(false);
-  const [mousePositionDocument, setmousePositionDocument] = useState({ x: null, y: null });
-  const [mousePositionScreen, setmousePositionScreen] = useState({ x: null, y: null });
-  const [cursorTitle, setCursorTitle] = useState<string | null>(null);
-  const [cursorSubtitle, setCursorSubtitle] = useState<string | null>(null);
-  const [cursorDate, setCursorDate] = useState<string | null>(null);
-  const [cursorID, setCursorID] = useState<string | null>(null);
-  const mainRef = useRef<HTMLDivElement | null>(null);
-  const [mainHeight, setMainHeight] = useState<number | undefined>(undefined);
-  // const [scrollIncrement, setScrollIncrement] = useState(0);
-  const [scrollTrigger, setScrollTriger] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<string | null>(null)
-  const scrollIncrement = useRef<number>(0);
-
-  // const [scrollY, setScrollY] = useState<number>(0);
-  // const [prevScrollY, setPrevScrollY] = useState<number>(0);
-  // const prevScrollY = useRef<number>(0);
-  const scrollY = useRef(0)
-
   const posts = getAllPosts();
 
-  const blogList = useRef<HTMLDivElement>(null);
-  const postCardHeight = useRef<number | null>(null);
-
-
-  // const scroll = () => {
-  //   // prevScrollY.current = scrollY;
-  //   // setPrevScrollY(scrollY)
-  //   // setScrollY(Math.floor(window.scrollY))
-  //   prevScrollY.current = scrollY.current
-  //   scrollY.current = Math.floor(window.scrollY);
-  //   if(scrollY > prevScrollY) {
-  //     // console.log(scrollIncrement)
-  //     // window.scroll(0, window.outerHeight * scrollIncrement)
-  //     // setScrollIncrement(scrollIncrement + 1)
-  //   }
-  //   console.log(prevScrollY.current, scrollY.current)
-
-  // }
-
-  // const scrollDirection = useThrottle(() => {
-  //   scroll()
-  // }, 500)
-
-  useEffect(() => {
-    const targetDiv = blogList?.current;
-
-    if (!targetDiv) return;
-    const observer = new ResizeObserver(() => {
-      postCardHeight.current = targetDiv.clientHeight;
-    });
-    observer.observe(targetDiv)
-    return () => { observer.disconnect() };
-  }, [blogList.current])
-
+  // Reset Scroll to Top
+  const [scrollReset, didScrollReset] = useState(false);
   useEffect(() => {
     if (!scrollReset) {
       window.scroll(0, 0)
@@ -72,129 +17,71 @@ export default function Home() {
     };
   }, [])
 
-  let scrollTimeout: string | number | NodeJS.Timeout | undefined = undefined;
-  let wheelTimeout: string | number | NodeJS.Timeout | undefined = undefined;
-
-  // const [flag, setFlag]= useState<boolean>(true);
-  const wheelFlag = useRef<boolean>(true);
-  const direction = useRef<string | null>(null)
-
+  // Monitor Height of each Blog Post Card
+  const blogList = useRef<HTMLDivElement>(null);
+  const postCardHeight = useRef<number | null>(null);
   useEffect(() => {
- 
+    const targetDiv = blogList?.current;
+    if (!targetDiv) return;
+    const observer = new ResizeObserver(() => {
+      postCardHeight.current = targetDiv.clientHeight / posts.length;
+    });
+    observer.observe(targetDiv)
+    return () => { observer.disconnect() };
+  }, [blogList.current])
+
+  // Monitor Client Dimensions (W, H)
+  const [clientDim, setClientDim] = useState<{ x: number | null, y: number | null }>({ x: null, y: null })
+  useEffect(() => {
+    const handleWindowResize = (e: any) => {
+      setClientDim({ x: window.innerWidth, y: window.innerHeight })
+    }
+    addEventListener('resize', handleWindowResize)
+    return () => {
+      removeEventListener('resize', handleWindowResize)
+    }
+  }, [])
+
+  // Full Page Scroll Mechanism for screens.W > 768px
+  let wheelTimeout: string | number | NodeJS.Timeout | undefined = undefined;
+  const wheelFlag = useRef<boolean>(true);
+  const scrollIncrement = useRef<number>(0);
+  useEffect(() => {
+    if (clientDim.x !== null && clientDim.x <= 768) return
     const wheel = (e: any) => {
       e.preventDefault();
-      if (wheelFlag.current) {
-        // console.log("START scrolling")
+      if (wheelFlag.current && postCardHeight.current) {
         if (e.deltaY > 0 && scrollIncrement.current < posts.length) {
-          window.scroll(0, window.outerHeight * Math.min(scrollIncrement.current + 1, posts.length))
+          window.scroll(0, postCardHeight.current * Math.min(scrollIncrement.current + 1, posts.length))
           scrollIncrement.current = (Math.min(scrollIncrement.current + 1, posts.length))
-          direction.current = "down";
           wheelFlag.current = false
         }
         else if (e.deltaY < 0 && scrollIncrement.current > 0) {
-          direction.current = "up";
-          window.scroll(0, window.outerHeight * Math.max(scrollIncrement.current - 1, 0))
+          window.scroll(0, postCardHeight.current * Math.max(scrollIncrement.current - 1, 0))
           scrollIncrement.current = (Math.max(scrollIncrement.current - 1, 0))
-
           wheelFlag.current = false
         }
-        // console.log(direction.current)
       };
       clearTimeout(wheelTimeout);
       wheelTimeout = setTimeout(function () {
-        // console.log("END wheel ended")
         wheelFlag.current = true;
-      }, 300)
+      }, 150)
     }
-     
-
-    // const scrollEvent = (e : any) => {
-    //   e.preventDefault();
-    //   clearTimeout(scrollTimeout);
-    //   scrollTimeout = setTimeout(function () {
-    //     console.log("END scroll ended")
-    //     wheelFlag.current = true;
-    //   }, 100)
-    // }
-
-
-    window.addEventListener("wheel", wheel, {passive: false})
-    // window.addEventListener('scroll', scrollEvent, {passive: false});
+    window.addEventListener("wheel", wheel, { passive: false })
     return () => {
       window.removeEventListener("wheel", wheel)
-      // window.removeEventListener('scroll', scrollEvent)
     }
-  }, [scrollIncrement.current, wheelFlag.current])
+  }, [scrollIncrement.current, wheelFlag.current, clientDim])
 
-  //   useEffect(() => {
-  //     console.log("running")
-  //     let scrollEvent = () => {
-  //       clearTimeout(scrollTimeout);
-  //       scrollTimeout = setTimeout(function() {
-  //         console.log("scroll ended")
-  //         if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "down") {
-  //           setScrollIncrement(Math.min(scrollIncrement + 1, posts.length - 1));
-  //         }
-  //         if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "up") {
-  //           setScrollIncrement(Math.max(scrollIncrement - 1, 0));
-  //         }
-  //   }, 100);
-  // }
-  //       window.addEventListener('scroll', scrollEvent);
-
-  //     if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "down") {
-  //       console.log(Math.min(scrollIncrement + 1, posts.length - 1));
-  //       console.log('posts ', posts.length - 1) 
-  //       blogList.current.children[Math.min(scrollIncrement + 1, posts.length - 1)].scrollIntoView({behavior: "smooth", block: "center"})
-  //     }
-  //     if (scrollIncrement !== null && blogList.current && scrollTrigger !== null && scrollDirection === "up") {
-  //       console.log(Math.max(scrollIncrement - 1, 0)); 
-  //       blogList.current.children[Math.max(scrollIncrement - 1, 0)].scrollIntoView({behavior: "smooth", block: "center"})
-  //     }
-
-  //     return () => {window.removeEventListener('scroll', scrollEvent)}
-  //   },[scrollTrigger, scrollDirection, setScrollIncrement])
-
+  // Cursor for screens.W > 768px
+  const [cursorTitle, setCursorTitle] = useState<string | null>(null);
+  const [cursorSubtitle, setCursorSubtitle] = useState<string | null>(null);
+  const [cursorDate, setCursorDate] = useState<string | null>(null);
+  const [cursorID, setCursorID] = useState<string | null>(null);
+  const [cursorShown, isCursorShown] = useState(false);
+  const [mousePositionDocument, setmousePositionDocument] = useState({ x: null, y: null });
+  const [mousePositionScreen, setmousePositionScreen] = useState({ x: null, y: null });
   useEffect(() => {
-    // console.log(prevScrollY.current, scrollY.current)
-
-    const scroll = (e: any) => {
-      console.log('running')
-      let interval = setInterval(() => {
-        // prevScrollY.current = scrollY.current
-        scrollY.current = Math.floor(window.scrollY);
-        console.log("curr scroll: ", scrollY)
-
-      }, 500)
-      return clearInterval(interval)
-    }
-
-    // let wheelTimeout: string | number | NodeJS.Timeout | undefined = undefined;
-
-    // const wheel = (e: any) => {
-    //   // clearTimeout(wheelTimeout)
-
-    //   // wheelTimeout = setTimeout(() => {
-    //     if (scrollIncrement !== null && postCardHeight && postCardHeight.current) {
-    //       if (e.deltaY > 0) {
-    //         // setScrollIncrement(Math.min(scrollIncrement + 1, posts.length - 1));
-    //         setScrollTriger(!scrollTrigger)
-    //         setScrollDirection("down")
-    //         // console.log(scrollIncrement)
-    //         // console.log(scrollIncrement.current * postCardHeight.current)
-    //         // window.scroll(0, scrollIncrement.current * postCardHeight.current)
-    //       } else {
-    //         // setScrollIncrement(Math.max(scrollIncrement - 1, 0));
-    //         setScrollTriger(!scrollTrigger)
-    //         setScrollDirection("up")
-    //         // console.log(scrollIncrement)
-    //         // console.log(scrollIncrement.current * postCardHeight.current)
-    //         // window.scroll(0, scrollIncrement.current * postCardHeight.current)
-    //       }
-    //     }
-    //   // }, 300)
-    // }
-
     const mouseMove = (e: any) => {
       setmousePositionDocument({
         x: e.pageX,
@@ -205,19 +92,17 @@ export default function Home() {
         y: e.clientY
       })
     }
-
     window.addEventListener("mousemove", mouseMove)
-    // window.addEventListener("wheel", wheel)
-    // window.addEventListener("scroll", scroll)
-
     return () => {
       window.removeEventListener("mousemove", mouseMove)
-      // window.removeEventListener("wheel", wheel)
-      // window.removeEventListener("scroll", scroll)
     }
   })
 
+  // Height of All Blog Posts ::: TO REVIEW
+  const mainRef = useRef<HTMLDivElement | null>(null);
+  const [mainHeight, setMainHeight] = useState<number | undefined>(undefined);
   useEffect(() => {
+    setClientDim({ x: window.innerWidth, y: window.innerHeight })
     mainRef.current ? setMainHeight(mainRef.current.clientHeight) : undefined
   }, [mainRef.current, scrollReset])
 
@@ -225,13 +110,13 @@ export default function Home() {
     scrollReset &&
     <>
       <main className={classes.main} ref={mainRef}>
-        {mainHeight && scrollY !== null &&
+        {mainHeight &&
           <div
             className={classes.blog__grid}
             style={{
               height: mainHeight * 8,
               transform: `translate3d(${-(mousePositionScreen.x ? mousePositionScreen.x / 2 : 0)}px, 
-              ${-(mousePositionScreen.y ? mousePositionScreen.y / 2 : 0) - (scrollY.current * 2)}px, 0)`
+              ${-(mousePositionScreen.y ? mousePositionScreen.y / 2 : 0)}px, 0)`
             }}
           ></div>
         }
@@ -274,7 +159,7 @@ export default function Home() {
                 >
                 </Link>
 
-                {cursorShown && cursorTitle && cursorSubtitle && cursorDate && cursorID &&
+                {cursorShown && cursorTitle && cursorSubtitle && cursorDate && cursorID && clientDim.x && clientDim.x > 768 &&
                   <section
                     className={classes.cursorText}
                     style={{ transform: `translate(calc(${mousePositionScreen.x}px + 12px), calc(${mousePositionScreen.y}px + 8px))` }}

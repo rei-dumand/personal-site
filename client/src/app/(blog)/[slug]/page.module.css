@@ -1,7 +1,20 @@
 .main {
+  display: block;
   background-color: rgb(247, 247, 247);
   width: 100svw;
   min-height: 100svh;
+}
+
+.background__grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  background-image: 
+  linear-gradient(#ffffff 3px, transparent 3px), linear-gradient(90deg, #ffffff 3px, transparent 3px), 
+  linear-gradient(#ffffffa0 2px, transparent 2px), linear-gradient(90deg, #ffffffa0 2px, transparent 2px), 
+  linear-gradient(#ffffff6a 1px, transparent 1px), linear-gradient(90deg, #ffffff6a 1px, transparent 1px);
+  background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;
 }
 
 .post__frontmatter {
@@ -9,7 +22,6 @@
   width: 100%;
   min-height: clamp(50svh, calc(50svw + 15svh), 115svh);
   position: relative;
-  /* justify-content: center; */
   align-items: center;
   display: flex;
 }

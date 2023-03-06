@@ -92,7 +92,7 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 a {
@@ -105,9 +105,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: unset;
+  background: #ededed;
 }
 
 ::-webkit-scrollbar-thumb {

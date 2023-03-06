@@ -35,7 +35,7 @@
   linear-gradient(#ffffff 3px, transparent 3px), linear-gradient(90deg, #ffffff 3px, transparent 3px), 
   linear-gradient(#ffffffa0 2px, transparent 2px), linear-gradient(90deg, #ffffffa0 2px, transparent 2px), 
   linear-gradient(#ffffff6a 1px, transparent 1px), linear-gradient(90deg, #ffffff6a 1px, transparent 1px);
-  background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;;
+  background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;
   pointer-events: none;
   mix-blend-mode: difference;
   /* transition: all 400ms */
@@ -103,6 +103,12 @@
   width: 100%;
   height: 100%;
   cursor: none;
+}
+
+@media (max-width: 768px) {
+  .blog__button {
+    cursor: crosshair;
+  }
 }
 
 .post__card {
