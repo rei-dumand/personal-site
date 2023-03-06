@@ -5,7 +5,6 @@
   "type": "commonjs",
   "scripts": {
     "dev": "next dev",
-    "deploy": "npm i --legacy-peer-deps && npm run build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
