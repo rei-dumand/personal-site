@@ -1,11 +1,7 @@
-'use client';
 import classes from './page.module.css';
-import About from '../about/page';
 import Link from 'next/link';
 import { allPosts } from 'contentlayer/generated';
 import { compareAsc } from 'date-fns';
-import { useState, useEffect } from 'react';
-
 
 export default function Archive() {
 

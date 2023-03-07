@@ -2,8 +2,11 @@
 import classes from './page.module.css';
 import About from '@/app/(home)/about/page';
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, createRef, LegacyRef, RefObject } from 'react';
 import getAllPosts from './helpers/getAllPosts';
+import ReactPlayer from 'react-player/youtube';
+import YouTube from 'react-youtube';
+import YouTubePlayer from 'react-player/youtube';
 
 export default function Home() {
   const posts = getAllPosts();
@@ -33,7 +36,7 @@ export default function Home() {
   // Monitor Client Dimensions (W, H)
   const [clientDim, setClientDim] = useState<{ x: number | null, y: number | null }>({ x: null, y: null })
   useEffect(() => {
-    const handleWindowResize = (e: any) => {
+    const handleWindowResize = (_e: any) => {
       setClientDim({ x: window.innerWidth, y: window.innerHeight })
     }
     addEventListener('resize', handleWindowResize)
@@ -106,6 +109,14 @@ export default function Home() {
     mainRef.current ? setMainHeight(mainRef.current.clientHeight) : undefined
   }, [mainRef.current, scrollReset])
 
+  // Youtube Embeds
+  const [iFrameReady, isIFrameReady] = useState(false)
+  const playerRefs = useRef<YouTubePlayer[] | null[]>([]);
+  useEffect(() => {
+    playerRefs.current = posts.map(() => null);
+  }, [posts])
+  console.log(playerRefs)
+  
   return (
     scrollReset &&
     <>
@@ -132,9 +143,64 @@ export default function Home() {
 
             return (
               <section className={classes.post__card} key={post.url} id={String(index)}>
-                <video autoPlay loop muted preload='true'>
+                <div className={classes.videoContainer}>
+            
+                  {/* <YouTube
+                    videoId="0Ew1WrwdKZM"
+                    opts={{
+                      playerVars: {
+                        origin: 'http://localhost:3000/',
+                        autoplay: 1,
+                        mute: 1
+                      },
+                    }}
+                    onReady={(event) => {
+                      console.log(event)
+                      event.target.playVideo()
+                    }}
+                  onStateChange={function (event) {
+                    var YTP=event.target;
+                    if(event.data===1){
+                         var remains=YTP.getDuration() - YTP.getCurrentTime();
+                         setTimeout(function(){
+                          console.log("reset")
+                              YTP.seekTo(0);
+                          },(remains-0.1)*1000);
+                      }
+                    }
+                  }
+                  /> */}
+                  <ReactPlayer
+                    // ref={function (this) { console.log(this) }}
+                    ref={el => playerRefs.current[index] = el}
+                    url='https://www.youtube-nocookie.com/watch?v=0Ew1WrwdKZM&origin=http://localhost:3000/'
+                    style={{opacity: iFrameReady ? 1 : 0}}
+                    playing
+                    muted
+                    onStart={() => {
+                      isIFrameReady(true)
+                    }}
+                    loop
+                    width='100%'
+                    height='100%'
+                    progressInterval={100}
+                    onProgress={e => {
+                      if (e.loaded === 1 && e.loadedSeconds - e.playedSeconds < 0.2) {
+                        playerRefs?.current[index]?.seekTo(0)
+                      }
+                    }}
+                  />
+
+                  {/* <iframe src="https://www.youtube-nocookie.com/embed/?playlist=0Ew1WrwdKZM&origin=http://localhost:3000/&autoplay=1&mute=1&loop=1&enablejsapi=1&controls=0&color=white&modestbranding=1&playsinline=1&rel=0"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe> */}
+
+                  {/* <video autoPlay loop muted preload='true'>
                   <source src={post.coverImage} />
-                </video>
+                </video> */}
+                </div>
 
                 <div className={classes.post__card__text__container}>
                   <h3>{postID}</h3>

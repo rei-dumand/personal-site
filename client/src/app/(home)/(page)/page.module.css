@@ -31,10 +31,10 @@
   position: absolute;
   z-index: 2;
   opacity: 0.1;
-  background-image: 
-  linear-gradient(#ffffff 3px, transparent 3px), linear-gradient(90deg, #ffffff 3px, transparent 3px), 
-  linear-gradient(#ffffffa0 2px, transparent 2px), linear-gradient(90deg, #ffffffa0 2px, transparent 2px), 
-  linear-gradient(#ffffff6a 1px, transparent 1px), linear-gradient(90deg, #ffffff6a 1px, transparent 1px);
+  background-image:
+    linear-gradient(#ffffff 3px, transparent 3px), linear-gradient(90deg, #ffffff 3px, transparent 3px),
+    linear-gradient(#ffffffa0 2px, transparent 2px), linear-gradient(90deg, #ffffffa0 2px, transparent 2px),
+    linear-gradient(#ffffff6a 1px, transparent 1px), linear-gradient(90deg, #ffffff6a 1px, transparent 1px);
   background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;
   pointer-events: none;
   mix-blend-mode: difference;
@@ -57,7 +57,7 @@
 }
 
 .cursorText::before {
-  content:'';
+  content: '';
   position: absolute;
   transform: translate(calc(-100vw - 8px), -10px);
   width: 200vw;
@@ -66,7 +66,7 @@
 }
 
 .cursorText::after {
-  content:'';
+  content: '';
   position: absolute;
   top: -115vh;
   left: 0;
@@ -115,7 +115,7 @@
   position: relative;
   width: 100%;
   background-color: rgb(18, 18, 18);
-  min-height: clamp(50svh, calc(75svw + 15svh), 115svh);
+  min-height: clamp(50svh, calc(75svw + 15svh), 100svh);
   cursor: pointer;
   /* scroll-snap-align: center; */
 }
@@ -131,8 +131,35 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background-position: center center; 
   position: absolute;
 }
+
+.videoContainer {
+  overflow: hidden;
+	width: 100%;
+	/* Keep it the right aspect-ratio */
+	/* aspect-ratio: 16/9; */
+	/* No clicking/hover effects */
+	pointer-events: none;
+}
+
+.videoContainer iframe {
+  	/* Extend it beyond the viewport... */
+		width: 300%;
+		height: 100%;
+		/* ...and bring it back again */
+		margin-left: -100%;
+  /* width: 100%; */
+  /* height: 100%; */
+  object-fit: cover;
+  background-position: center center; 
+  position: absolute;
+}
+
+/* .reactPlayer {
+  opacity: 1;
+} */
 
 
 
