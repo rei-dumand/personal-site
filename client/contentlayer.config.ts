@@ -30,6 +30,11 @@ export const Post = defineDocumentType(() => ({
             description: 'Link to post cover image',
             required: true,
         },
+        coverVideoID: {
+            type: 'string',
+            description: 'Link to post cover Video ID',
+            required: true,
+        },
     },
     computedFields: {
         url: {

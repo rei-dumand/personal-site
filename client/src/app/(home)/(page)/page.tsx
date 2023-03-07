@@ -115,7 +115,6 @@ export default function Home() {
   useEffect(() => {
     playerRefs.current = posts.map(() => null);
   }, [posts])
-  console.log(playerRefs)
   
   return (
     scrollReset &&
@@ -136,7 +135,7 @@ export default function Home() {
 
           {posts.map((post, index, posts) => {
             let postID = (() => {
-              let res = String(posts.length - index)
+              let res = String(posts.length - index - 1)
               while (res.length < 3) res = 0 + res;
               return res
             })();
@@ -173,7 +172,7 @@ export default function Home() {
                   <ReactPlayer
                     // ref={function (this) { console.log(this) }}
                     ref={el => playerRefs.current[index] = el}
-                    url='https://www.youtube-nocookie.com/watch?v=0Ew1WrwdKZM&origin=http://localhost:3000/'
+                    url={`https://www.youtube-nocookie.com/watch?v=${post.coverVideoID}&origin=http://localhost:3000/`}
                     style={{opacity: iFrameReady ? 1 : 0}}
                     playing
                     muted

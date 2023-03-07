@@ -4,6 +4,7 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
+    "cleandev": "RD /s /q .next && npm run dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
