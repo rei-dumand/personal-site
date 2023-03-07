@@ -35,9 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-public/
+public/images/
 .env.local
 
 # contentlayer
 /.contentlayer
-/content/
+/content/posts/drafts/

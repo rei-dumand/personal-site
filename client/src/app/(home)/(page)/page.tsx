@@ -115,7 +115,7 @@ export default function Home() {
   useEffect(() => {
     playerRefs.current = posts.map(() => null);
   }, [posts])
-  
+
   return (
     scrollReset &&
     <>
@@ -143,37 +143,10 @@ export default function Home() {
             return (
               <section className={classes.post__card} key={post.url} id={String(index)}>
                 <div className={classes.videoContainer}>
-            
-                  {/* <YouTube
-                    videoId="0Ew1WrwdKZM"
-                    opts={{
-                      playerVars: {
-                        origin: 'http://localhost:3000/',
-                        autoplay: 1,
-                        mute: 1
-                      },
-                    }}
-                    onReady={(event) => {
-                      console.log(event)
-                      event.target.playVideo()
-                    }}
-                  onStateChange={function (event) {
-                    var YTP=event.target;
-                    if(event.data===1){
-                         var remains=YTP.getDuration() - YTP.getCurrentTime();
-                         setTimeout(function(){
-                          console.log("reset")
-                              YTP.seekTo(0);
-                          },(remains-0.1)*1000);
-                      }
-                    }
-                  }
-                  /> */}
                   <ReactPlayer
-                    // ref={function (this) { console.log(this) }}
                     ref={el => playerRefs.current[index] = el}
                     url={`https://www.youtube-nocookie.com/watch?v=${post.coverVideoID}&origin=http://localhost:3000/`}
-                    style={{opacity: iFrameReady ? 1 : 0}}
+                    style={{ opacity: iFrameReady ? 1 : 0 }}
                     playing
                     muted
                     onStart={() => {
@@ -189,16 +162,6 @@ export default function Home() {
                       }
                     }}
                   />
-
-                  {/* <iframe src="https://www.youtube-nocookie.com/embed/?playlist=0Ew1WrwdKZM&origin=http://localhost:3000/&autoplay=1&mute=1&loop=1&enablejsapi=1&controls=0&color=white&modestbranding=1&playsinline=1&rel=0"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe> */}
-
-                  {/* <video autoPlay loop muted preload='true'>
-                  <source src={post.coverImage} />
-                </video> */}
                 </div>
 
                 <div className={classes.post__card__text__container}>
@@ -229,7 +192,6 @@ export default function Home() {
                     className={classes.cursorText}
                     style={{ transform: `translate(calc(${mousePositionScreen.x}px + 12px), calc(${mousePositionScreen.y}px + 8px))` }}
                   >
-
                     <div>{cursorTitle}</div>
                     <div>{cursorSubtitle}</div>
                     <div>{cursorDate}</div>
@@ -238,10 +200,9 @@ export default function Home() {
                     <div>{`y: ${mousePositionDocument.y}`}</div>
 
                     {/* <h2>{cursorTitle}</h2>
-                  <h3>00{posts.length - index}</h3>
-                  <h4>{cursorSubtitle}</h4>
-                  <h5>{cursorDate}</h5> */}
-
+                    <h3>00{posts.length - index}</h3>
+                    <h4>{cursorSubtitle}</h4>
+                    <h5>{cursorDate}</h5> */}
                   </section>
                 }
               </section>
