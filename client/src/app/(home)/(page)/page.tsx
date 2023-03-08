@@ -203,6 +203,7 @@ export default function Home() {
                         playerRefs?.current[index]?.seekTo(0)
                       }
                     }}
+                    onError={e => console.log(e)}
                   />
                 </div>
 
