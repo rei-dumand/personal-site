@@ -2,11 +2,10 @@
 import classes from './page.module.css';
 import About from '@/app/(home)/about/page';
 import Link from 'next/link';
-import { useState, useEffect, useRef, createRef, LegacyRef, RefObject } from 'react';
+import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import getAllPosts from './helpers/getAllPosts';
-import ReactPlayer from 'react-player/youtube';
-import YouTube from 'react-youtube';
-import YouTubePlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player/lazy';
+import YouTubePlayer from 'react-player/lazy';
 
 export default function Home() {
   const posts = getAllPosts();
@@ -154,7 +153,7 @@ export default function Home() {
 
   // Youtube Embeds
   const [iFrameReady, isIFrameReady] = useState(false)
-  const playerRefs = useRef<YouTubePlayer[] | null[]>([]);
+  const playerRefs = useRef<ReactPlayer[] | null[]>([]);
   useEffect(() => {
     playerRefs.current = posts.map(() => null);
   }, [posts])
@@ -208,16 +207,24 @@ export default function Home() {
                 </div>
 
                 <div className={classes.post__card__text__container}>
-                  <h3>{postID}</h3>
                   <h2>{post.title}</h2>
-                  <h4>{post.subtitle}</h4>
+                  <h3>{post.subtitle}</h3>
+                  <h4>{postID}</h4>
                   <h5>{post.date}</h5>
                 </div>
 
                 <Link
+                  title={post.title}
+                  data-title={post.title}
                   href={post.url}
                   className={classes.blog__button}
-                  onMouseLeave={() => isCursorShown(false)}
+                  onMouseEnter={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => {
+                    ct.title = ''
+                  }}
+                  onMouseLeave={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => {
+                    isCursorShown(false)
+                    ct.title = ct.dataset.title!
+                  }}
                   onScroll={(e) => console.log(e)}
                   onMouseMove={() => {
                     isCursorShown(true)

@@ -1,44 +1,59 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, type MouseEvent } from 'react';
 import Link from 'next/link';
 import classes from './Navbar.module.css';
 import NavMenu from 'public/assets/logo/logo-lightmode.svg';
 import Logo from 'public/assets/logo/logo-concise-lightmode.svg';
-import {useSearchParams} from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
-let Navbar = (props : any) => {
-    const {slug} = props
+let Navbar = (props: any) => {
+   const { slug } = props
 
-    const [showNavItems, setShowNavItems] = useState<boolean>(false);
-    const [hasRun, setHasRun] = useState<boolean>(false);
+   const [showNavItems, setShowNavItems] = useState<boolean>(false);
+   const [hasRun, setHasRun] = useState<boolean>(false);
 
-    const handleShowNavItems = () => {
-        if (!hasRun) setHasRun(true);
-        setShowNavItems(!showNavItems)
-    }
+   const handleShowNavItems = () => {
+      if (!hasRun) setHasRun(true);
+      setShowNavItems(!showNavItems)
+   }
 
-    return (
-        <>
-            <NavMenu
-                onClick={handleShowNavItems}
-                alt="SVG navbar logo"
-                className={classes.navMenu}
-            />
+   const homeLogo = useRef<HTMLAnchorElement>(null)
 
-            <nav className={`
+   return (
+      <>
+         <NavMenu
+            onClick={handleShowNavItems}
+            alt="SVG navbar logo"
+            className={classes.navMenu}
+         />
+
+         <nav className={`
                 ${classes.navItems}
                 ${!hasRun && classes.initial}
                 ${!showNavItems && classes.hidden}
                 ${showNavItems && classes.visible}`
-            }>
-                <div className={classes.navbarLeft}>
-                    <Link href="/" className={classes.logo}><Logo /></Link>
-                    {/* <Link href="/archive">Archive</Link> */}
-                </div>
-                <Link href="/about">About</Link>
-            </nav>
-        </>
-    )
+         }>
+            <div className={classes.navbarLeft}>
+               <Link
+                  ref={homeLogo}
+                  title='Homepage'
+                  data-title="Homepage"
+                  href="/"
+                  className={classes.logo}
+                  onMouseEnter={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = '' }}
+                  onMouseLeave={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = ct.dataset.title! }}
+               ><Logo /></Link>
+            </div>
+            <Link
+               title='About'
+               data-title="About"
+               href="/about"
+               onMouseEnter={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = '' }}
+               onMouseLeave={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = ct.dataset.title! }}
+            >About</Link>
+         </nav>
+      </>
+   )
 }
 
 export default Navbar;

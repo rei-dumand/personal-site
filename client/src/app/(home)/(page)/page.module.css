@@ -188,12 +188,13 @@
   position: absolute;
   top: 30%;
   left: 5%;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 768px) {
   .post__card__text__container {
     opacity: 1;
-    display: block;
   }
 }
 
@@ -203,22 +204,25 @@
   letter-spacing: -0.05em;
   mix-blend-mode: difference;
   color: #fff;
+  order: 2
 }
 
 .post__card h3 {
+  font-size: clamp(1em, 6vw, 4em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+  order: 3;
+}
+
+.post__card h4 {
   font-size: clamp(1em, 6vw, 8em);
   font-weight: 200;
   line-height: 0.7em;
   margin-left: -0.3vw;
   mix-blend-mode: difference;
   color: #fff;
-}
-
-.post__card h4 {
-  font-size: clamp(1em, 6vw, 4em);
-  letter-spacing: -0.05em;
-  mix-blend-mode: difference;
-  color: #fff;
+  order: 1
 }
 
 .post__card h5 {
@@ -227,6 +231,7 @@
   letter-spacing: -0.05em;
   mix-blend-mode: difference;
   color: #fff;
+  order: 4;
 }
 
 /* @media (max-width: 700px) {

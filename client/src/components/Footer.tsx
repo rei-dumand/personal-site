@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 import Link from 'next/link';
 import classes from './Footer.module.css';
 import NavMenu from 'public/assets/logo/logo-lightmode.svg';
@@ -15,7 +15,14 @@ let Footer = () => {
 
     return (
         <div className={classes.footerItems}>
-            <Link className={classes.archiveButton} href="/archive">Grid View</Link>
+            <Link
+                title='Grid View'
+                data-tite='Grid View'
+                className={classes.archiveButton}
+                href="/archive"
+                onMouseEnter={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = '' }}
+                onMouseLeave={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = ct.dataset.title! }}
+            >Grid View</Link>
         </div>
     )
 }
