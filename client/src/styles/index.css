@@ -2,6 +2,40 @@
   font-family: "Brygada1918";
   src: url("./fonts/Brygada1918-VariableFont_wght.ttf") format("truetype");
 }
+.typography, * {
+  font-family: "Inter";
+  font-size: calc(15px + 0.390626vw);
+  line-height: 150%;
+  font-weight: 400;
+  color: #2b2b2c;
+  font-feature-settings: "pnum" on, "lnum" on;
+}
+
+.typography--small, h5, h4 {
+  font-size: 10px;
+}
+
+.typography--bold, h5, h4, .typography--large, h1 {
+  font-weight: 700;
+}
+
+.typography--semi-bold, h1 {
+  font-weight: 700;
+}
+
+.typography--large, h1 {
+  font-size: 1.5rem;
+  line-height: 120%;
+}
+
+h4 {
+  color: #77777A;
+}
+
+h5 {
+  color: #5A5A5E;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -677,77 +711,6 @@ a {
   background: #fff;
   animation: name duration timing-function delay iteration-count direction fill-mode;
 } */
-@media (max-width: 768px) {
-  .navItems {
-    backdrop-filter: blur(10px);
-    z-index: 15;
-    background-color: rgba(30, 30, 30, 0.5);
-    width: 0%;
-    height: 0%;
-    mix-blend-mode: unset;
-    font-size: clamp(1rem, 10vw, 5rem);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .navItems a {
-    padding: 4rem;
-  }
-  .navItems.initial {
-    display: none;
-  }
-  .navItems.visible {
-    animation: fadeIn 0.3s linear forwards;
-    width: 100%;
-    height: 100%;
-  }
-  @keyframes fadeIn {
-    0% {
-      display: flex;
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  .navItems.hidden {
-    opacity: 0;
-    animation: fadeOut 0.3s linear forwards;
-  }
-  @keyframes fadeOut {
-    0% {
-      opacity: 1;
-      width: 100%;
-      height: 100%;
-    }
-    99% {
-      width: 100%;
-      height: 100%;
-    }
-    100% {
-      display: none;
-      opacity: 0;
-    }
-  }
-  .navMenu {
-    opacity: 1;
-    display: block;
-    position: fixed;
-    z-index: 20;
-    top: 20px;
-    left: calc(50% - 35px);
-    mix-blend-mode: difference;
-    opacity: 0.9;
-    width: 70px;
-    height: 70px;
-  }
-}
-.loadingScreen {
-  background-color: #121212;
-  width: 100svw;
-  height: 100svh;
-}
-
 .footerItems {
   position: fixed;
   width: 100%;
@@ -781,25 +744,83 @@ a {
 .table-posts {
   border-collapse: collapse;
   border-spacing: 10px;
+  width: 80vw;
+}
+.table-posts .col-1 {
+  max-width: 0px;
+}
+.table-posts .col-2 {
+  max-width: 500px;
+}
+.table-posts .col-3 {
+  max-width: 120px;
 }
 .table-posts > thead > tr > th {
   font-weight: 100;
   text-align: start;
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 .table-posts > tbody > :last-child {
-  border-bottom: 1px solid rgb(221, 221, 221);
+  border-bottom: 1px solid #99999A;
 }
 .table-posts > tbody > tr {
-  border-top: 1px solid rgb(173, 173, 173);
-  font-size: 40px;
+  border-top: 1px solid #99999A;
   height: inherit;
   vertical-align: top;
-  cursor: pointer;
 }
 .table-posts > tbody > tr > td > a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   display: block;
-  padding: 10px 20px;
+  height: 100%;
+  width: 100%;
+}
+.table-posts > tbody > tr > :nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 0.5rem;
+  min-width: 120px;
+}
+
+.table-posts2 {
+  width: clamp(80vw, 500px, 100vw);
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  border-bottom: 1px solid #99999A;
+}
+.table-posts2 > tr {
+  display: contents;
+}
+.table-posts2 > tr > th {
+  text-align: left;
+  border-top: 1px solid #99999A;
+}
+.table-posts2 > tr > td {
+  text-align: left;
+  border-top: 1px solid #99999A;
+  list-style: none;
+}
+.table-posts2 > tr > td > a {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.table-posts2 > tr > :nth-child(3n-1) {
+  background-color: aqua;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.table-posts2 > tr > :nth-child(3n-1) a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 0.2rem;
 }
 
 /*# sourceMappingURL=index.css.map */

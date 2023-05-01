@@ -1,8 +1,5 @@
-
-@font-face {
-  font-family: 'Brygada1918';
-  src: url('./fonts/Brygada1918-VariableFont_wght.ttf') format('truetype');
-}
+@import '_colors';
+@import '_typography';
 
 * {
   box-sizing: border-box;
@@ -69,6 +66,5 @@ mix-blend-mode: difference;
 @import '_archive-page';
 @import '_blog-page';
 @import '_navbar';
-@import '_loading';
 @import '_footer';
 @import '_table';

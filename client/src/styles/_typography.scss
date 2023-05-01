@@ -1,0 +1,47 @@
+@import '_colors';
+
+@font-face {
+  font-family: 'Brygada1918';
+  src: url('./fonts/Brygada1918-VariableFont_wght.ttf') format('truetype');
+}
+
+.typography {
+  font-family: 'Inter';
+  font-size: calc(15px + 0.390626vw);
+  line-height: 150%;
+  font-weight: 400;
+  color: $body-text;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+.typography--small {
+  font-size: 10px;
+}
+.typography--bold {
+  font-weight: 700;
+}
+.typography--semi-bold {
+  font-weight: 700;
+}
+.typography--large {
+  @extend .typography--bold;
+  font-size: 1.5rem;
+  line-height: 120%;
+}
+
+* {
+  @extend .typography;
+}
+h1 {
+  @extend .typography--semi-bold;
+  @extend .typography--large;
+}
+h4 {
+  @extend .typography--small;
+  @extend .typography--bold;
+  color: $grey-500;
+}
+h5 {
+  @extend .typography--small;
+  @extend .typography--bold;
+  color: $grey-600;
+}
