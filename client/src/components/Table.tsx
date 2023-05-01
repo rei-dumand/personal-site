@@ -1,69 +1,90 @@
 import Link from 'next/link'
-import React from 'react'
-import type { Row } from '..'
+import React, { useState } from 'react'
+import type { Row, Header } from '..'
 import parseClasses from '@/utils/parseClasses'
 
 declare type TableProps = {
   rows: Row[]
-  headers: string[]
+  headers: Header[]
 }
 
 export default function Table(props: TableProps) {
   const { rows, headers } = props
 
-  return (
-    <>
-      <table className="table-posts">
-        <colgroup>
-          <col className="col-1" />
-          <col className="col-2" />
-          <col className="col-3" />
-        </colgroup>
-        <thead>
-          <tr>
-            {headers && headers.map((header, idx) => (
-              <th key={idx}>
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows && rows.map(row => (
-            <tr key={row.id}>
-              {row.cells && row.cells.map(cell => (
-                <td key={cell.id}>
-                  <Link href={`/${row.url}`}>
-                    {cell.label}
-                  </Link>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  const [activeRow, setActiveRow] = useState<string | number | null>(rows ? rows[0].id : null)
 
-      <table className="table-posts2">
+  return (
+    <table className="posts-table">
+      <thead>
         <tr>
           {headers && headers.map((header, idx) => (
             <th key={idx}>
-              {header}
+              {header.label}
             </th>
           ))}
         </tr>
+      </thead>
+      <tbody>
         {rows && rows.map(row => (
-          <tr key={row.id}>
-            {row && row.cells.map(cell => (
+          <tr
+            key={row.id}
+            // onMouseLeave={() => { setActiveRow(null) }}
+            onFocus={() => { if (activeRow !== row.id) setActiveRow(row.id) }}
+            onMouseOver={() => { if (activeRow !== row.id) setActiveRow(row.id) }}
+          >
+            {/* {row && row.cells.map(cell => (
               <td key={cell.id}>
                 <Link href={`/${row.url}`}>
                   {cell.label}
                 </Link>
               </td>
-            ))}
-          </tr>
-        ))}
+            ))} */}
+            {row && row.cells.map(cell => {
+              const headerKey = headers.map(h => h.key)
+              if (headerKey.includes(cell.key)) {
+                return (
+                  <td key={cell.id} className={parseClasses(activeRow === row.id && 'posts-table__row--active')}>
+                    <Link href={`/${row.url}`}>
+                      {cell.label}
+                    </Link>
+                  </td>
+                )
+              } return null
+            })}
 
-      </table>
-    </>
+            { activeRow === row.id && (
+            <td className="posts-table__row__panel">
+              <div>
+                <Link href={`/${row.url}`}>
+                  <div>
+                    {row && row.cells.map((cell, id) => {
+                      if (cell.key === 'subtitle') {
+                        return (
+                          <div key={id} className="posts-table__row__panel__subtitle">
+                            {cell.label}
+                          </div>
+                        )
+                      } return null
+                    })}
+                    {row && row.cells.map((cell, id) => {
+                      if (cell.key === 'excerpt') {
+                        return (
+                          <div key={id} className="posts-table__row__panel__excerpt">
+                            {cell.label}
+                          </div>
+                        )
+                      } return null
+                    })}
+                  </div>
+                  {/* <img alt="post" className="image-placeholder" /> */}
+                </Link>
+              </div>
+            </td>
+            )}
+          </tr>
+
+        ))}
+      </tbody>
+    </table>
   )
 }

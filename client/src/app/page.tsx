@@ -15,22 +15,44 @@ export default function Home() {
   return (
     <main className="home-page">
       <Table
-        headers={['published', 'title', 'subtitle']}
+        headers={[
+          {
+            key: 'date',
+            label: 'published',
+          },
+          {
+            key: 'title',
+            label: 'title',
+          },
+          // {
+          //   key: 'subtitle',
+          //   label: 'subtitle',
+          // },
+        ]}
         rows={posts.map((post, idx): Row => ({
           id: idx,
           url: post.url,
           cells: [{
+            key: 'date',
             id: `${idx}-date`,
             label: post.date,
           },
           {
+            key: 'title',
             id: `${idx}-title`,
             label: post.title,
           },
           {
+            key: 'subtitle',
             id: `${idx}-subtitle`,
             label: post.subtitle,
-          }],
+          },
+          {
+            key: 'excerpt',
+            id: `${idx}-excerpt`,
+            label: post.excerpt,
+          },
+          ],
         }))}
       />
 
