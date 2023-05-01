@@ -4,7 +4,6 @@ import React from 'react'
 // { type MouseEvent }
 import Link from 'next/link'
 // import NavMenu from 'public/assets/logo/logo-lightmode.svg'
-import classes from './Footer.module.css'
 
 function Footer() {
   // const [showNavItems, setShowNavItems] = useState<boolean>(false)
@@ -16,11 +15,11 @@ function Footer() {
   // }
 
   return (
-    <div className={classes.footerItems}>
+    <div className="footerItems">
       <Link
         title="Grid View"
         data-tite="Grid View"
-        className={classes.archiveButton}
+        className="archiveButton"
         href="/archive"
         // onMouseEnter={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = '' }}
         // onMouseLeave={({ currentTarget: ct }: MouseEvent<HTMLAnchorElement>) => { ct.title = ct.dataset.title! }}

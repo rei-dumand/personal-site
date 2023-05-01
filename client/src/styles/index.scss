@@ -12,6 +12,8 @@
 html, body {
   width: 100%;
   height: 100%;
+  background-color: #fff9f5;
+  // background-color: #121212;
 }
 
 code {
@@ -68,3 +70,5 @@ mix-blend-mode: difference;
 @import '_blog-page';
 @import '_navbar';
 @import '_loading';
+@import '_footer';
+@import '_table';

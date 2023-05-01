@@ -1,26 +1,6 @@
-// import '@/styles/index.scss'
 import React from 'react'
 import '@/styles/index.css'
-
-// export const metadata: Metadata = {
-//   title: 'Rèï - Personal Portfolio',
-//   description: 'A personal portfolio & blog by Rèï',
-//   authors: [{ name: 'Rèï Dumand' }],
-//   icons: {
-//     icon: '/favicon.svg',
-//     // shortcut: '/favicon.svg',
-//     // apple: '/favicon.svg',
-//     // other: {
-//     //   rel: 'favicon',
-//     //   url: '/favicon.svg',
-//     // },
-//   },
-//   viewport: {
-//     width: 'device-width',
-//     initialScale: 1,
-//     maximumScale: 1
-//   }
-// }
+import Navbar from '@/components/navigation/Navbar'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,6 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
+        <header>
+          <Navbar />
+        </header>
         {children}
       </body>
     </html>

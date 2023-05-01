@@ -1,0 +1,32 @@
+.table-posts {
+  border-collapse: collapse;
+  border-spacing: 10px;
+
+  > thead {
+    > tr > th {
+      font-weight: 100;
+      text-align: start;
+      padding: 10px 20px
+    }
+  }
+  
+  > tbody {
+    
+    > :last-child {
+      border-bottom: 1px solid rgb(221, 221, 221);
+    }
+    
+    > tr {
+      border-top: 1px solid rgb(173, 173, 173);
+      font-size: 40px;
+      height: inherit;
+      vertical-align: top;
+      cursor: pointer; 
+
+      > td > a {
+        display: block;
+        padding: 10px 20px;
+      }
+    }
+  }
+}
