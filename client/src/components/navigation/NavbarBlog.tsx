@@ -1,46 +1,44 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import classes from './Navbar.module.css';
-import NavMenu from 'public/assets/logo/logo-lightmode.svg';
-import Logo from 'public/assets/logo/logo-concise-lightmode.svg';
-import Arrow from 'public/assets/Arrow.svg';
+'use client'
 
+import React, { useState } from 'react'
+import Link from 'next/link'
+import Arrow from '@/assets/icons/Arrow'
+import LogoLightmode from '@/assets/icons/Logo'
+import parseClasses from '@/utils/parseClasses'
 
-let Navbar = (props : any) => {
-    const [showNavItems, setShowNavItems] = useState<boolean>(false);
-    const [hasRun, setHasRun] = useState<boolean>(false);
+function Navbar() {
+  const [showNavItems, setShowNavItems] = useState<boolean>(false)
+  const [hasRun, setHasRun] = useState<boolean>(false)
 
-    const handleShowNavItems = () => {
-        if (!hasRun) setHasRun(true);
-        setShowNavItems(!showNavItems)
-    }
+  const handleShowNavItems = () => {
+    if (!hasRun) setHasRun(true)
+    setShowNavItems(!showNavItems)
+  }
 
-    return (
-        <>
-            <NavMenu
-                onClick={handleShowNavItems}
-                alt="SVG navbar logo"
-                className={classes.navMenu}
-            />
+  return (
+    <>
+      <LogoLightmode
+        onClick={handleShowNavItems}
+        className="navMenu"
+      />
 
-            <nav className={`
-                ${classes.navItems}
-                ${!hasRun && classes.initial}
-                ${!showNavItems && classes.hidden}
-                ${showNavItems && classes.visible}`
-            }>
-                <div className={classes.navbarLeft}>
-                <Link href="/" className={classes.backHome}>
-                    <Arrow className={classes.backArrow}/>
-                    Home
-                    </Link>
-                    {/* <Link href="/archive">Archive</Link> */}
-                </div>
-                <Link href="/about">About</Link>
-            </nav>
-        </>
-    )
+      <nav className={parseClasses(
+        'navItems',
+        !hasRun && 'initial',
+        !showNavItems && 'hidden',
+        showNavItems && 'visible',
+      )}
+      >
+        <div className="navbarLeft">
+          <Link href="/" className="backHome">
+            <Arrow className="backArrow" />
+            Home
+          </Link>
+        </div>
+        <Link href="/about">About</Link>
+      </nav>
+    </>
+  )
 }
 
-export default Navbar;
+export default Navbar

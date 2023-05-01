@@ -1,60 +1,61 @@
-import * as React from "react"
-import { useMDXComponent as MDXComponent } from "next-contentlayer/hooks"
-import Classes from './PostSection.module.css';
-import { Bitter, Inter } from '@next/font/google';
-import { PostSectionIntro as Intro } from './PostSectionIntro';
-import Image from 'next/image';
-import ImageSwitch from '@/components/BlogLayout/ImageSwitch';
+import React from 'react'
+import { useMDXComponent as MDXComponent } from 'next-contentlayer/hooks'
+import Image from 'next/image'
+import Classes from './PostSection.module.css'
+import { PostSectionIntro as Intro } from './PostSectionIntro'
+import ImageSwitch from './BlogLayout/ImageSwitch'
 
-const inter = Inter({ subsets: ['latin'] })
-const PTSerif = Bitter({ weight: 'variable', style: 'normal', subsets: ['latin'] })
+// const PTSerif = Bitter({ weight: 'variable', style: 'normal', subsets: ['latin'] })
 
 const components = {
   h2: ({ ...props }) => (
     <h2
-      className={`${Classes["h2"]} ${inter.className}`}
+      className={`${Classes.h2}`}
       {...props}
-    />
+    >{}
+    </h2>
   ),
   p: ({ ...props }) => (
     <p
-      className={`${Classes["p"]}`}
+      className={`${Classes.p}`}
       {...props}
     />
   ),
   li: ({ ...props }) => (
     <li
-      className={`${Classes["li"]}`}
+      className={`${Classes.li}`}
       {...props}
-    />),
-  Intro: Intro,
-  Image: ({ ...props }) => {
-    // console.log(props)
-    return (
-      // <div style={{width: '100%', height: 'clamp(20em, 20vh, 100vh)', margin: '3em 0'}}>
-      <div className={Classes["Image__Container"]}>
-        {//@ts-expect-error}
-          <Image
-            className={Classes["Image"]}
-            sizes="(max-width: 300px) 100vw, (max-width: 500px) 100vw, 800px,"
+    />
+  ),
+  Intro,
+  Image: ({ ...props }) => (
+    // <div style={{width: '100%', height: 'clamp(20em, 20vh, 100vh)', margin: '3em 0'}}>
+    <div className={Classes.Image__Container}>
+      {// @ts-expect-error}
+        <Image
+          className={Classes.Image}
+          sizes="(max-width: 300px) 100vw, (max-width: 500px) 100vw, 800px,"
             // placeholder="blur"
-            {...props} />}
-      </div>
-      //</div>
-    )
-  },
+          {...props}
+        />
+}
+    </div>
+    // </div>
+  ),
   ImageDot: ({ ...props }) => (
-    <div className={Classes["ImageDot__Container"]}>
-      <div className={Classes["ImageDot__Background"]}>
-        {//@ts-expect-error}
+    <div className={Classes.ImageDot__Container}>
+      <div className={Classes.ImageDot__Background}>
+        {// @ts-expect-error}
           <Image
-            className={Classes["Image"]}
+            className={Classes.Image}
             sizes="(max-width: 300px) 100vw, (max-width: 500px) 100vw, 800px,"
-            {...props} />}
+            {...props}
+          />
+}
       </div>
     </div>
   ),
-  ImageSwitch: ImageSwitch,
+  ImageSwitch,
   // Intro: ({...props}) => <span style={{color: 'blue'}} {...props}/>
 }
 
@@ -63,11 +64,10 @@ interface MdxProps {
 }
 
 export function PostSection({ code }: MdxProps) {
-  const Component = code ? MDXComponent(code) : undefined;
-
+  const Component = code ? MDXComponent(code) : undefined
 
   return (
-    <div className={`${Classes["container"]} ${inter.className}`}>
+    <div className={`${Classes.container}`}>
       {Component && <Component components={components} />}
     </div>
   )

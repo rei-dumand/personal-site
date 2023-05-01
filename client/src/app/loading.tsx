@@ -1,6 +1,7 @@
-'use client';
-import classes from './loading.module.css';
+'use client'
+
+import React from 'react'
 
 export default function Loading() {
-    return <main className={classes.loadingScreen}></main>
-  }
+  return <main className="loadingScreen" />
+}

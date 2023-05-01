@@ -1,3 +1,17 @@
-graphics/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
+!.yarn/cache
+.yarn/cache/*darwin*
+.yarn/cache/*linux*
+
+# dependencies
+/node_modules
+
+# content folders
+graphics/
 client Vite/
