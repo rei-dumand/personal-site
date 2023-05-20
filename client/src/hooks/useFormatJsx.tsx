@@ -90,10 +90,7 @@ export function formatJsx(markdownStr: string) {
       element.type === 'pre'
       && element.props.children.type === 'code'
     ) {
-      // const newCodeFence = { ...element }
       const newCodeBlock = { ...element.props.children }
-      // newCodeFence.props = newCodeBlock
-      // newCodeFence.props.className = 'hello'
       console.log(newCodeBlock.props)
       const formatted = hljs.highlight(
         newCodeBlock.props.children,
