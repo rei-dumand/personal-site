@@ -1,20 +1,17 @@
-/** @type {import('next').NextConfig} */
-
-const { withContentlayer } = require('next-contentlayer')
 const path = require('path')
 
+/** @type {import('next').NextConfig} */
+
 const nextConfig = {
+  reactStrictMode: true,
   sassOptions: {
     loadPaths: [path.join(__dirname, 'styles')],
-    // includePaths: [path.join(__dirname, 'styles')],
   },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   productionBrowserSourceMaps: true,
   experimental: {
-    // scrollRestoration: true,
     appDir: true,
   },
-  reactStrictMode: true,
   images: {
     formats: ['image/webp'],
     deviceSizes: [82, 110, 140, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -30,4 +27,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withContentlayer(nextConfig)
+module.exports = nextConfig

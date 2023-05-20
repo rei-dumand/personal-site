@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import React, { useState } from 'react'
 import type { Row, Header } from '..'
@@ -28,22 +30,20 @@ export default function Table(props: TableProps) {
         {rows && rows.map(row => (
           <tr
             key={row.id}
-            // onMouseLeave={() => { setActiveRow(null) }}
             onFocus={() => { if (activeRow !== row.id) setActiveRow(row.id) }}
             onMouseOver={() => { if (activeRow !== row.id) setActiveRow(row.id) }}
           >
-            {/* {row && row.cells.map(cell => (
-              <td key={cell.id}>
-                <Link href={`/${row.url}`}>
-                  {cell.label}
-                </Link>
-              </td>
-            ))} */}
             {row && row.cells.map(cell => {
               const headerKey = headers.map(h => h.key)
               if (headerKey.includes(cell.key)) {
                 return (
-                  <td key={cell.id} className={parseClasses(activeRow === row.id && 'posts-table__row--active')}>
+                  <td
+                    key={cell.id}
+                    className={parseClasses(
+                      activeRow === row.id && 'posts-table__row--active',
+                      cell.key && `posts-table__row__${cell.key}`,
+                    )}
+                  >
                     <Link href={`/${row.url}`}>
                       {cell.label}
                     </Link>

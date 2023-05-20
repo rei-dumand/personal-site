@@ -1,17 +1,14 @@
-'use client'
-
-import React, { useState } from 'react'
-import { allPosts } from 'contentlayer/generated'
-import { compareAsc } from 'date-fns'
-// import getAllPosts from './helpers/getAllPosts'
+import React from 'react'
 import Table from '@/components/Table'
 import { Row } from '..'
 
-export default function Home() {
-  // const posts = getAllPosts()
-  const [posts] = useState(allPosts.sort((a, b) => compareAsc(new Date(b.date), new Date(a.date))))
+import { getAllPosts } from '@/hooks/useNotionClient'
 
-  console.log(posts)
+export default async function Home() {
+  const posts = await getAllPosts()
+  // console.log('👺', posts)
+  posts?.map(post => console.log(post.topics))
+
   return (
     <main className="home-page">
       <Table
@@ -25,33 +22,38 @@ export default function Home() {
             label: 'title',
           },
           // {
-          //   key: 'subtitle',
-          //   label: 'subtitle',
+          //   key: 'topics',
+          //   label: 'topics',
           // },
         ]}
-        rows={posts.map((post, idx): Row => ({
+        rows={posts && posts.map((post, idx): Row => ({
           id: idx,
-          url: post.url,
+          url: `blog/${String(post.title).replaceAll(' ', '-').toLowerCase()}`,
           cells: [{
             key: 'date',
             id: `${idx}-date`,
-            label: post.date,
+            label: post.published,
           },
           {
             key: 'title',
             id: `${idx}-title`,
             label: post.title,
           },
-          {
-            key: 'subtitle',
-            id: `${idx}-subtitle`,
-            label: post.subtitle,
-          },
-          {
-            key: 'excerpt',
-            id: `${idx}-excerpt`,
-            label: post.excerpt,
-          },
+          // {
+          //   key: 'topics',
+          //   id: `${idx}-topics`,
+          //   label: post.topics,
+          // },
+          // {
+          //   key: 'subtitle',
+          //   id: `${idx}-subtitle`,
+          //   label: post.subtitle,
+          // },
+          // {
+          //   key: 'excerpt',
+          //   id: `${idx}-excerpt`,
+          //   label: post.excerpt,
+          // },
           ],
         }))}
       />
@@ -59,3 +61,5 @@ export default function Home() {
     </main>
   )
 }
+
+export const revalidate = 600

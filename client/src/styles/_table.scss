@@ -20,6 +20,15 @@
       padding: 2px 10px;
     }
 
+    > .posts-table__row__date {
+      // text-align: center;
+      vertical-align: middle;
+      > a {
+        color: $grey-400;
+        // font-size: 1rem;
+      }
+    }
+
     > .posts-table__row--active {
       border-bottom: 1px dashed $grey-300;
     }

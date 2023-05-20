@@ -5,14 +5,28 @@
   src: url('./fonts/Brygada1918-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'FiraCode';
+  src: url('./fonts/FiraCode-VariableFont_wght.ttf') format('truetype');
+}
+
 .typography {
-  font-family: 'Inter';
+  font-family: 'Brygada 1918';
+  // font-size: calc(15px + 0.390626vw);
+  line-height: 150%;
+  font-weight: 400;
+  // color: $body-text;
+  // font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.typography__code {
+  font-family: 'FiraCode';
   font-size: calc(15px + 0.390626vw);
   line-height: 150%;
   font-weight: 400;
   color: $body-text;
-  font-feature-settings: 'pnum' on, 'lnum' on;
 }
+
 .typography--small {
   font-size: 10px;
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import LogoConcise from '@/assets/icons/LogoConcise'
-// import '@/styles/_about-page.scss'
 
 export default function About() {
   return (

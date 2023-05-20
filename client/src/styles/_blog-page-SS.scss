@@ -1,0 +1,97 @@
+.main {
+  display: block;
+  background-color: rgb(247, 247, 247);
+  width: 100svw;
+  min-height: 100svh;
+}
+
+.background__grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  background-image: 
+  linear-gradient(#ffffff 3px, transparent 3px), linear-gradient(90deg, #ffffff 3px, transparent 3px), 
+  linear-gradient(#ffffffa0 2px, transparent 2px), linear-gradient(90deg, #ffffffa0 2px, transparent 2px), 
+  linear-gradient(#ffffff6a 1px, transparent 1px), linear-gradient(90deg, #ffffff6a 1px, transparent 1px);
+  background-size: 500px 500px, 500px 500px, 100px 100px, 100px 100px, 10px 10px, 10px 10px;
+}
+
+.post__frontmatter {
+  background-color: rgb(18, 18, 18);
+  width: 100%;
+  min-height: clamp(50svh, calc(50svw + 15svh), 115svh);
+  position: relative;
+  align-items: center;
+  display: flex;
+}
+
+.post__frontmatter video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.text__container {
+  margin-left: clamp(50px, 7vw, 150px);
+  margin-bottom: 2em;
+  animation: fadeUp 500ms ease-in 250ms normal forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.post__frontmatter h2 {
+  font-size: clamp(2em, 10vw, 12em);
+  margin-left: -0.3vw;
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter h3 {
+  font-size: clamp(1em, 6vw, 8em);
+  font-weight: 200;
+  line-height: 0.7em;
+  margin-left: -0.3vw;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter h4 {
+  font-size: clamp(1em, 6vw, 4em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter h5 {
+  font-weight: 400;
+  font-size: clamp(0.7em, 4vw, 2em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.post__frontmatter p {
+  font-weight: 400;
+  font-size: clamp(0.7em, 4vw, 2em);
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .text__container {
+    margin-left: 16px;
+  }
+}
