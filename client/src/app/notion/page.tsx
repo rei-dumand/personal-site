@@ -17,6 +17,7 @@ import { ReactElement } from 'react-markdown/lib/react-markdown'
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
 import 'highlight.js/styles/Pojoaque.css'
+import parseClasses from '@/utils/parseClasses'
 
 hljs.registerLanguage('javascript', javascript)
 
@@ -103,7 +104,7 @@ async function blocksToJSX(
       case 'heading_1':
         const { color: h1Color } = (block as Heading1BlockObjectResponse).heading_1
         const h1Content = parseTextBlock(block as Heading1BlockObjectResponse, 'heading_1')
-        result.push(<h1 key={block.id} className={h1Color !== 'default' ? h1Color : undefined}>{h1Content.map(i => i)}</h1>)
+        result.push(<h1 key={block.id} className={parseClasses(h1Color !== 'default' ? h1Color : undefined)}>{h1Content.map(i => i)}</h1>)
         break
 
       case 'heading_2':
@@ -260,9 +261,9 @@ async function getPost(notionClient: Client, slug: string) {
 }
 
 export default async function Notion() {
-  const post = await getPost(notion, 'entry-001')
+  const post = await getPost(notion, 'notion-typology')
   return post ? (
-    <main style={{ padding: '60px 20px' }}>
+    <main className="blog-page">
       {post.JSXBlocks.map(b => b)}
     </main>
   ) : undefined

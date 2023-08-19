@@ -36,3 +36,33 @@ $success-active: rgba($success, 0.25);
 $yellow-100: #FFF3CD;
 $yellow-200: #FFE69C;
 $warning: #FFC107;
+
+$notion-gray: #bcbcbc;
+$notion-brown: #6d2e0f;
+$notion-orange: #f07800;
+$notion-yellow: #d8cd08;
+$notion-green: #1f8b07;
+$notion-blue: #053b7e;
+$notion-purple: #6608ae;
+$notion-pink: #c90a9c;
+$notion-red: #bf1209;
+
+// .default{ color: ; }
+.gray{ color: $notion-gray; }
+.brown{ color: $notion-brown; }
+.orange{ color: $notion-orange; }
+.yellow{ color: $notion-yellow; }
+.green{ color: $notion-green; }
+.blue{ color: $notion-blue; }
+.purple{ color: $notion-purple; }
+.pink{ color: $notion-pink; }
+.red{ color: $notion-red; }
+.gray_background{ background-color: $notion-gray; }
+.brown_background{ background-color: $notion-brown; }
+.orange_background{ background-color: $notion-orange; }
+.yellow_background{ background-color: $notion-yellow; }
+.green_background{ background-color: $notion-green; }
+.blue_background{ background-color: $notion-blue; }
+.purple_background{ background-color: $notion-purple;}
+.pink_background{ background-color: $notion-pink;}
+.red_background{ background-color: $notion-red;}

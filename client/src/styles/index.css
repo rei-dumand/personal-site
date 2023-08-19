@@ -1,3 +1,147 @@
+.gray {
+  color: #bcbcbc;
+}
+
+.brown {
+  color: #6d2e0f;
+}
+
+.orange {
+  color: #f07800;
+}
+
+.yellow {
+  color: #d8cd08;
+}
+
+.green {
+  color: #1f8b07;
+}
+
+.blue {
+  color: #053b7e;
+}
+
+.purple {
+  color: #6608ae;
+}
+
+.pink {
+  color: #c90a9c;
+}
+
+.red {
+  color: #bf1209;
+}
+
+.gray_background {
+  background-color: #bcbcbc;
+}
+
+.brown_background {
+  background-color: #6d2e0f;
+}
+
+.orange_background {
+  background-color: #f07800;
+}
+
+.yellow_background {
+  background-color: #d8cd08;
+}
+
+.green_background {
+  background-color: #1f8b07;
+}
+
+.blue_background {
+  background-color: #053b7e;
+}
+
+.purple_background {
+  background-color: #6608ae;
+}
+
+.pink_background {
+  background-color: #c90a9c;
+}
+
+.red_background {
+  background-color: #bf1209;
+}
+
+.gray {
+  color: #bcbcbc;
+}
+
+.brown {
+  color: #6d2e0f;
+}
+
+.orange {
+  color: #f07800;
+}
+
+.yellow {
+  color: #d8cd08;
+}
+
+.green {
+  color: #1f8b07;
+}
+
+.blue {
+  color: #053b7e;
+}
+
+.purple {
+  color: #6608ae;
+}
+
+.pink {
+  color: #c90a9c;
+}
+
+.red {
+  color: #bf1209;
+}
+
+.gray_background {
+  background-color: #bcbcbc;
+}
+
+.brown_background {
+  background-color: #6d2e0f;
+}
+
+.orange_background {
+  background-color: #f07800;
+}
+
+.yellow_background {
+  background-color: #d8cd08;
+}
+
+.green_background {
+  background-color: #1f8b07;
+}
+
+.blue_background {
+  background-color: #053b7e;
+}
+
+.purple_background {
+  background-color: #6608ae;
+}
+
+.pink_background {
+  background-color: #c90a9c;
+}
+
+.red_background {
+  background-color: #bf1209;
+}
+
 @font-face {
   font-family: "Brygada1918";
   src: url("./fonts/Brygada1918-VariableFont_wght.ttf") format("truetype");

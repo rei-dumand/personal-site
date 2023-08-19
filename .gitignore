@@ -15,3 +15,6 @@
 # content folders
 graphics/
 client Vite/
+
+.DS_Store
+
