@@ -36,8 +36,6 @@ html,
 body {
 padding: 0;
 margin: 0;
-// overflow-x: hidden;
-/* overflow-y: hidden; */
 }
 
 a {
@@ -60,15 +58,12 @@ mix-blend-mode: difference;
 
 b {font-weight: 700}
 i {font-style: italic}
-// s {font-style: }
 h2 {font-size: 25px}
 a {text-decoration: underline; color: rgb(130, 13, 13)}
 
 @import '_about-page';
 @import '_home-page';
-@import '_projects-page';
 @import '_archive-page';
 @import '_blog-page';
 @import '_navbar';
-@import '_footer';
 @import '_table';
