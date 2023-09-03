@@ -1,0 +1,241 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: rgb(33, 30, 44);
+  padding: 100px 10%;
+  cursor: crosshair;
+}
+.about > h1 {
+  font-size: clamp(2em, 12vw, 6em);
+  margin-left: -0.4vw;
+  letter-spacing: 0.02em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+.about .content {
+  gap: 10em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+.about .column__intro {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.about .logo {
+  position: relative;
+  justify-content: flex-start;
+  width: clamp(50px, 40vw, 400px);
+  /* width: 10%; */
+  margin: 30px 0;
+  mix-blend-mode: difference;
+}
+.about .headline {
+  white-space: pre-wrap;
+  max-width: 750px;
+  font-size: clamp(1em, 6vw, 2em);
+  line-height: calc(100% + 0.2em);
+  margin-left: -0.3vw;
+  letter-spacing: -0.05em;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+.about .column__contact {
+  display: flex;
+  flex-direction: column;
+}
+.about .about a {
+  color: #fff;
+  mix-blend-mode: difference;
+  font-size: clamp(1em, 6vw, 2em);
+  line-height: calc(100% + 1.2em);
+  text-align: end;
+  cursor: pointer;
+  text-decoration: underline;
+}
+@media (max-width: 1000px) {
+  .about .column__intro {
+    margin-bottom: 2em;
+  }
+  .about .about p {
+    white-space: normal;
+    width: unset;
+  }
+  .about .about a {
+    text-align: left;
+  }
+  .about .content {
+    gap: 0;
+    flex-direction: column;
+  }
+}
+
+@font-face {
+  font-family: "Brygada1918";
+  src: url("./fonts/Brygada1918-VariableFont_wght.ttf") format("truetype");
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+code {
+  font-family: monospace;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  mix-blend-mode: difference;
+  min-width: 100px;
+  height: 42px;
+  padding: 10px 15px;
+}
+
+.navbarLeft {
+  display: flex;
+  align-items: center;
+  animation: fadeIn 500ms ease-in 250ms normal forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  100% {
+    opacity: 1;
+  }
+}
+.navItems {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  text-transform: uppercase;
+  /* letter-spacing: -0.15em; */
+  font-size: 1.3rem;
+  /* word-spacing: 0.3rem; */
+  z-index: 10;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.navItems a {
+  padding: 10px 15px;
+}
+
+.navMenu__holder {
+  display: none;
+}
+
+.navMenu {
+  opacity: 0;
+  display: none;
+}
+
+.backHome {
+  display: flex;
+  align-items: center;
+}
+
+.backArrow {
+  z-index: 30;
+  height: 16px;
+  mix-blend-mode: difference;
+  margin-right: 15px;
+  transition: transform 100ms;
+  transform: translate3d(5px, 0, 0);
+}
+
+.navbarLeft:hover .backArrow {
+  transform: translate3d(0px, 0, 0);
+}
+
+/* .backHome:before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+} */
+@media (max-width: 768px) {
+  .navItems {
+    backdrop-filter: blur(10px);
+    z-index: 15;
+    background-color: rgba(30, 30, 30, 0.5);
+    width: 0%;
+    height: 0%;
+    mix-blend-mode: unset;
+    font-size: clamp(1rem, 10vw, 5rem);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .navItems a {
+    padding: 4rem;
+  }
+  .navItems.initial {
+    display: none;
+  }
+  .navItems.visible {
+    animation: fadeIn 0.3s linear forwards;
+    width: 100%;
+    height: 100%;
+  }
+  @keyframes fadeIn {
+    0% {
+      display: flex;
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .navItems.hidden {
+    opacity: 0;
+    animation: fadeOut 0.3s linear forwards;
+  }
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+      width: 100%;
+      height: 100%;
+    }
+    99% {
+      width: 100%;
+      height: 100%;
+    }
+    100% {
+      display: none;
+      opacity: 0;
+    }
+  }
+  .navMenu {
+    opacity: 1;
+    display: block;
+    position: fixed;
+    z-index: 20;
+    top: 20px;
+    left: calc(50% - 35px);
+    mix-blend-mode: difference;
+    opacity: 0.9;
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

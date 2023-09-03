@@ -1,0 +1,99 @@
+.blog-page {
+
+  // width: clamp(70vw, 90vw, 1200px);
+  // width: 300px;
+  display: grid;
+  grid-template-columns: 2fr 7fr 2fr;
+  grid-template-rows: 50px 350px 4fr;
+
+  .blog-page__frontmatter {
+    grid-column: 2 / span 1;
+    grid-row: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h1 {
+      font-size: 40px;
+    }
+
+    .blog-page__frontmatter__published {
+      font-size: 0.85rem;
+    }
+
+    .blog-page__frontmatter__topics {
+      display: flex;
+      gap: 10px;
+      .blog-page__frontmatter__topic {
+        font-size: 0.8rem;
+        width: fit-content;
+        height: fit-content;
+        padding: 2px 10px;
+        border-radius: 20px;
+      }
+    }
+  }
+  
+  .blog-page__body {
+    grid-column: 2 / span 1;
+    grid-row: 3 / 4;
+
+    pre {
+      background-color: #f9f0f0;
+      padding: 20px;
+      span {
+        font-family: 'FiraCode';
+        font-size: 0.9rem;
+      }
+    }
+    p {
+      margin-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    ol {
+      position: relative;
+      left: 40px;
+      width: calc(100% - 40px);
+      ::marker {
+        font-size: 30px;
+        position: absolute;
+        padding-right: 30px;
+      }
+    }
+
+    figure {
+      display: flex;
+      flex-direction: column;
+      margin: 3rem 0;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      img {
+        position: relative;
+        display: block;
+        width: fit-content;
+        max-height: 65vh;
+      }
+    }
+  }
+}
