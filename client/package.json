@@ -12,8 +12,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cloudinary/react": "^1.11.0",
-    "@cloudinary/url-gen": "^1.9.1",
     "@notionhq/client": "^2.2.5",
     "@svgr/webpack": "^6.5.1",
     "@types/node": "18.13.0",
@@ -25,14 +23,9 @@
     "install": "^0.13.0",
     "markdown-to-jsx": "^7.2.0",
     "next": "13.2.4",
-    "next-cloudinary": "^4.0.0",
     "next-images": "^1.8.5",
     "notion-to-md": "^2.6.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-markdown": "^8.0.7",
-    "react-player": "^2.11.2",
-    "react-youtube": "^10.1.0",
     "sass": "^1.62.1",
     "sharp": "^0.31.3",
     "webpack": "^5.81.0"

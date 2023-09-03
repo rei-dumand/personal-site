@@ -40,7 +40,7 @@ export async function getAllPosts() {
     const allPosts = res.results
     return allPosts.map(post => getPageMetaData(post))
   }
-  return null
+  return []
 }
 
 function extractLinks(markdown: string) {
@@ -86,25 +86,6 @@ export function parseNotionMdBlocks(blocks: MdBlock[]) {
     }
     switch (block.type) {
       case 'paragraph':
-        // let text = []
-        // let isInLinkDisplay = false
-        // let linkDisplay = []
-        // let isInLink = false
-        // let checkValidLink = false
-        // let link = []
-        // for (const c of block.parent) {
-        //   if (c === '[') {
-        //     isInLinkDisplay = true
-        //     linkDisplay.push(c)
-        //   }
-        //   console.log(char)
-        //   if (char)
-        // }
-        // res.push(
-        //   <p id={block.blockId}>
-        //     {block.parent}
-        //   </p>,
-        // )
         console.log(extractLinks(block.parent))
         res.push()
         break
@@ -113,7 +94,7 @@ export function parseNotionMdBlocks(blocks: MdBlock[]) {
         res.push()
     }
   }
-  
+
   return res
 }
 
