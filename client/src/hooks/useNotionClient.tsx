@@ -75,7 +75,6 @@ function extractLinks(markdown: string) {
       text: markdown.substring(lastIndex),
     })
   }
-
   return result
 }
 
@@ -114,7 +113,7 @@ export function parseNotionMdBlocks(blocks: MdBlock[]) {
         res.push()
     }
   }
-  // console.log('🥰', res)
+  
   return res
 }
 
@@ -134,9 +133,7 @@ export async function getPost(slug: string) {
     const page = response.results[0]
     const metadata = getPageMetaData(page)
     const mdBlocks = await n2m.pageToMarkdown(page.id)
-    console.log('😱', mdBlocks)
     const parsedBlocks = parseNotionMdBlocks(mdBlocks)
-    // console.log(parsedBlocks)
     const mdString = n2m.toMarkdownString(mdBlocks)
     return {
       metadata,

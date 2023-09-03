@@ -10,13 +10,10 @@ hljs.registerLanguage('javascript', javascript)
 
 type CodeBlockProps = {
   children: JSX.Element;
-  // className: string;
 };
 
 function CodeBlock({ children }: CodeBlockProps) {
-  console.log('😈', children)
   const language = children?.props?.className.replace('lang-', '')
-  console.log(language)
   const highlightedCode = children && hljs.highlight(children.props.children?.toString(), { language }).value
 
   return (

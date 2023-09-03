@@ -6,8 +6,6 @@ import { getAllPosts } from '@/hooks/useNotionClient'
 
 export default async function Home() {
   const posts = await getAllPosts()
-  // console.log('👺', posts)
-  posts?.map(post => console.log(post.topics))
 
   return (
     <main className="home-page">
