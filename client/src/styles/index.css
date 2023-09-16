@@ -150,6 +150,14 @@
   font-family: "FiraCode";
   src: url("./fonts/FiraCode-VariableFont_wght.ttf") format("truetype");
 }
+@font-face {
+  font-family: "SourceCodePro";
+  src: url("./fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "SourceCodePro-Italic";
+  src: url("./fonts/SourceCodePro-Italic-VariableFont_wght.ttf") format("truetype");
+}
 .typography, * {
   font-family: "Brygada 1918";
   line-height: 150%;
@@ -929,6 +937,25 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-right: 0.2rem;
+}
+
+.blog-structure {
+  padding-top: 50px;
+}
+.blog-structure * {
+  font-family: "SourceCodePro";
+}
+.blog-structure .callout img {
+  width: 24px;
+}
+.blog-structure .figure img {
+  width: 100%;
+}
+.blog-structure .ol {
+  padding: unset;
+}
+.blog-structure .ul {
+  padding: unset;
 }
 
 /*# sourceMappingURL=index.css.map */

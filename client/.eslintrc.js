@@ -39,5 +39,12 @@ module.exports = {
     ...baseConfig.rules,
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.ts'] }],
     '@typescript-eslint/semi': 0,
+    'react/destructuring-assignment': 0,
+    'react/button-has-type': 0,
+    'react/prop-types': 0,
+    'react/require-default-props': 0,
+    'react/no-array-index-key': 0,
+    'react/jsx-indent': ['error', 2],
+
   },
 }
