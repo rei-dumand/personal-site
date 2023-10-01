@@ -8,21 +8,6 @@ import 'highlight.js/styles/atom-one-light.css'
 
 hljs.registerLanguage('javascript', javascript)
 
-type CodeBlockProps = {
-  children: JSX.Element;
-};
-
-function CodeBlock({ children }: CodeBlockProps) {
-  const language = children?.props?.className.replace('lang-', '')
-  const highlightedCode = children && hljs.highlight(children.props.children?.toString(), { language }).value
-
-  return (
-    <pre>
-      <code className={`hljs ${language}`}>{highlightedCode}</code>
-    </pre>
-  )
-}
-
 const options = {
   // overrides: {
   //   pre: {
@@ -88,7 +73,6 @@ export function formatJsx(markdownStr: string) {
       && element.props.children.type === 'code'
     ) {
       const newCodeBlock = { ...element.props.children }
-      console.log(newCodeBlock.props)
       const formatted = hljs.highlight(
         newCodeBlock.props.children,
         { language: newCodeBlock.props.className.replace('lang-', '') },

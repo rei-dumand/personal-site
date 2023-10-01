@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client'
 import { NotionToMarkdown } from 'notion-to-md'
 import { MdBlock } from 'notion-to-md/build/types'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN })
 

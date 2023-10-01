@@ -1,8 +1,7 @@
 import React from 'react'
 import Table from '@/components/Table'
-import { Row } from '..'
-
 import { getAllPosts } from '@/hooks/useNotionClient'
+import { Row } from '..'
 
 export default async function Home() {
   const posts = await getAllPosts()

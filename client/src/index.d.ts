@@ -14,3 +14,16 @@ export declare type Row = {
   cells: Cell[]
   url?: string
 }
+
+export declare type Metadata = {
+  id: string,
+  title: string
+  published: string
+  updated: string,
+  topics: string[],
+}
+
+export declare type Post = {
+  metadata: Metadata,
+  JSXBlocks: React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
+}

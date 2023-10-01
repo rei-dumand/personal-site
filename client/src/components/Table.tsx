@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import React, { useState } from 'react'
-import type { Row, Header } from '..'
 import parseClasses from '@/utils/parseClasses'
+import type { Row, Header } from '..'
 
 declare type TableProps = {
   rows: Row[]
