@@ -29,6 +29,14 @@ declare type TableOfContents = { id: string, label: string, header_type: 'headin
 
 hljs.registerLanguage('javascript', javascript)
 
+export function flattenTextBlock(block: RichTextItemResponse[]) {
+  let res = ''
+  for (const child of block) {
+    res += child.plain_text
+  }
+  return res
+}
+
 function getPageMetaData(post: any): Metadata {
   const getTopics = (tags: any) => {
     const allTags = tags.map((tag: any) => ({ name: tag.name, color: tag.color }))
@@ -63,7 +71,7 @@ async function getPageBlocks(notionClient: Client, blockId: string, totalPage = 
     while (startCursor != null && (totalPage == null || pageCount < totalPage))
     return result
   } catch (e) {
-    console.log(e)
+    console.warn(e)
     return []
   }
 }
@@ -88,7 +96,7 @@ declare type TextBlock = Heading1BlockObjectResponse | Heading2BlockObjectRespon
 | NumberedListItemBlockObjectResponse | BulletedListItemBlockObjectResponse
 
 function parseTextBlock(block: TextBlock, blockType: TextBlock['type']) {
-  const arr: (ReactElement | string)[] = []
+  const arr: (ReactElement | string | null)[] = []
   const richTextArr = (block as any)[blockType].rich_text as Array<RichTextItemResponse>
   if (!richTextArr.length) return arr
   for (const [idx, richText] of richTextArr.entries()) {
@@ -107,24 +115,25 @@ async function appendChildren(client: Client, block: BlockObjectResponse, tableO
 function parseH1(block: Heading1BlockObjectResponse, tableOfContents: TableOfContents) {
   const { color: h1Color } = block.heading_1
   const h1Content = parseTextBlock(block, 'heading_1')
-  tableOfContents.push({ id: block.id, label: h1Content.map(i => i).join(' '), header_type: 'heading_1' })
+  tableOfContents.push({ id: block.id, label: flattenTextBlock(block.heading_1.rich_text), header_type: 'heading_1' })
   return <h1 id={block.id} key={block.id} className={parseClasses('h1', h1Color !== 'default' && h1Color)}>{h1Content.map(i => i)}</h1>
 }
 function parseH2(block: Heading2BlockObjectResponse, tableOfContents: TableOfContents) {
   const { color: h2Color } = block.heading_2
   const h2Content = parseTextBlock(block, 'heading_2')
-  tableOfContents.push({ id: block.id, label: h2Content.map(i => i).join(' '), header_type: 'heading_2' })
+  tableOfContents.push({ id: block.id, label: flattenTextBlock(block.heading_2.rich_text), header_type: 'heading_2' })
   return <h2 id={block.id} key={block.id} className={parseClasses('h2', h2Color !== 'default' && h2Color)}>{h2Content.map(i => i)}</h2>
 }
 function parseH3(block: Heading3BlockObjectResponse, tableOfContents: TableOfContents) {
   const { color: h3Color } = block.heading_3
   const h3Content = parseTextBlock(block, 'heading_3')
-  tableOfContents.push({ id: block.id, label: h3Content.map(i => i).join(' '), header_type: 'heading_3' })
+  tableOfContents.push({ id: block.id, label: flattenTextBlock(block.heading_3.rich_text), header_type: 'heading_3' })
   return <h3 id={block.id} key={block.id} className={parseClasses('h3', h3Color !== 'default' && h3Color)}>{h3Content.map(i => i)}</h3>
 }
 function parseP(block: ParagraphBlockObjectResponse) {
   const { color: pColor } = block.paragraph
   const pContent = parseTextBlock(block, 'paragraph')
+  if (!pContent.length) return null
   return <p key={block.id} className={parseClasses('p', pColor !== 'default' && pColor)}>{pContent.map(i => i)}</p>
 }
 function parseQuote(block: QuoteBlockObjectResponse) {
@@ -150,7 +159,6 @@ async function parseUnorderedList(
   const { color: bliColor } = block.bulleted_list_item
   const bliContent = parseTextBlock(block, 'bulleted_list_item')
   if (block.has_children) bliContent.push(...await appendChildren(notionClient, block, tableOfContents))
-  console.log(bliContent, block.id)
   return <li key={block.id} className={parseClasses('li', bliColor !== 'default' && bliColor)}>{bliContent.map(i => i)}</li>
 }
 async function parseCallout(notionClient: Client, block: CalloutBlockObjectResponse, tableOfContents: TableOfContents) {
@@ -215,8 +223,6 @@ function parseVideo(block: VideoBlockObjectResponse) {
 }
 function parseImage(block: ImageBlockObjectResponse) {
   if (block.image.type === 'external') {
-    console.log(block.image.caption)
-
     const caption = parseCaption(block.image.caption)
     return (
       <figure className="figure" key={block.id}>
@@ -232,7 +238,7 @@ async function parseColumn(
   block: ColumnBlockObjectResponse,
   tableOfContents: TableOfContents,
 ) {
-  const colContent: ReactElement[] = []
+  const colContent: (ReactElement | null)[] = []
   if (block.has_children) colContent.push(...await appendChildren(notionClient, block, tableOfContents))
   return <div key={block.id}>{colContent.map(i => i)}</div>
 }
@@ -241,7 +247,7 @@ async function parseColumnList(
   block: ColumnListBlockObjectResponse,
   tableOfContents: TableOfContents,
 ) {
-  const colListContent: ReactElement[] = []
+  const colListContent: (ReactElement | null)[] = []
   if (block.has_children) colListContent.push(...await appendChildren(notionClient, block, tableOfContents))
   return <div key={block.id} className={`column-${colListContent.length}`}>{colListContent.map(i => i)}</div>
 }
@@ -260,8 +266,8 @@ async function blocksToJSX(
   notionClient: Client,
   blockArr: (BlockObjectResponse)[],
   tableOfContents: TableOfContents,
-): Promise<ReactElement[]> {
-  const result: ReactElement[] = []
+): Promise<(ReactElement | null)[]> {
+  const result: (ReactElement | null)[] = []
 
   let numberedListArr: ReactElement[] = []
   let bulletedListArr: ReactElement[] = []
@@ -326,14 +332,18 @@ async function blocksToJSX(
         result.push(<div>{block.type} is not currently supported.</div>)
     }
   }
-  console.log(bulletedListArr)
+
   if (bulletedListArr.length) result.push(<ul className="ul" key={result.length++}>{bulletedListArr}</ul>)
   if (numberedListArr.length) result.push(<ol className="ol" key={result.length++}>{numberedListArr}</ol>)
 
   return result
 }
 
-function findAndAmendElement(elements: ReactElement[], targetId: string, newElement: ReactElement): ReactElement[] {
+function findAndAmendElement(
+  elements: (ReactElement | null)[],
+  targetId: string,
+  newElement: ReactElement,
+): (ReactElement | null)[] {
   return elements.map(element => {
     if (element?.props && element.props.id === targetId) {
       return React.cloneElement((element as ReactElement), {}, newElement)
@@ -370,7 +380,7 @@ export async function getPost(notionClient: Client, slug: string): Promise<Post 
     const tableOfContents: TableOfContents = []
     const JSXBlocks = await blocksToJSX(notionClient, blocks, tableOfContents)
 
-    const tocElement = <>{tableOfContents.map(c => <a key={`#${c.id}`} href={`#${c.id}`}><div>{c.label}</div></a>)}</>
+    const tocElement = <>{tableOfContents.map(c => <a key={`#${c.id}`} href={`#${c.id}`}><div className={`table-of-contents__label--${c.header_type}`}>{c.label}</div></a>)}</>
 
     const updatedElements = findAndAmendElement(JSXBlocks, tocId, tocElement)
 

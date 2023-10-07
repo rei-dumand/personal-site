@@ -1,0 +1,53 @@
+.dynamic-dot {
+  display:inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.1rem;
+  margin-top: .3rem;
+  margin-bottom: .3rem;
+  vertical-align: text-top;
+  background-color: $body-text;
+  animation: shift 15000ms infinite forwards;
+  @keyframes shift {            
+    0% { 
+      transform: skewY(20deg) rotate(0deg);
+      border-radius: 0%;
+    }
+    14% { 
+      transform: skewY(20deg) rotate(0deg);
+      border-radius: 0%;
+    }
+    19% { 
+      transform: skewY(0deg) rotate(90deg);
+      border-radius: 50%;
+    }
+    36% { 
+      transform: skewY(0deg) rotate(90deg);
+      border-radius: 50%;
+    }
+    41% { 
+      transform: skewY(-20deg) rotate(180deg);
+      border-radius: 0%;
+    }
+    58% { 
+      transform: skewY(-20deg) rotate(180deg);
+      border-radius: 0%;
+    }
+    63% { 
+      transform: skewY(0deg) rotate(270deg);
+      border-radius: 50%;
+    }
+    80% { 
+      transform: skewY(0deg) rotate(270deg);
+      border-radius: 50%;
+    }
+    85% { 
+      transform: skewY(20deg) rotate(359deg);
+      border-radius: 0%;
+    }
+    100% { 
+      transform: skewY(20deg) rotate(360deg);
+      border-radius: 0%;
+    }
+  }
+}

@@ -25,5 +25,5 @@ export declare type Metadata = {
 
 export declare type Post = {
   metadata: Metadata,
-  JSXBlocks: React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
+  JSXBlocks: (ReactElement<any, string | JSXElementConstructor<any>> | null)[];
 }
