@@ -308,12 +308,6 @@ code {
 }
 
 :root {
-  --md-section-max-width: 800px;
-  --md-paragraph-font-size: 1.4em;
-  --md-paragraph-font-line-height: 1.7;
-}
-
-:root {
   scroll-behavior: smooth;
 }
 
@@ -1029,14 +1023,16 @@ h2 {
 }
 
 :root {
-  --grid-columns: 70px [content-start] 1fr [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 1fr [content-end] 70px;
+  --grid-columns: 70px [header-start content-start] 1fr [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 1fr [header-end content-end] 70px;
+  --grid-central-section: 3 / 7;
+  --grid-header-section: 3 / 7;
   --font-size-sm: clamp(0.8rem, 0.59vw + 0.65rem, 1.13rem);
   --font-size-base: clamp(1rem, 0.91vw + 0.77rem, 1.4rem);
   --font-size-md: clamp(1.25rem, 1.36vw + 0.91rem, 2rem);
   --font-size-lg: clamp(1.56rem, 2.01vw + 1.06rem, 2.67rem);
   --font-size-xl: clamp(1.95rem, 2.91vw + 1.23rem, 3.55rem);
   --font-size-xxl: clamp(2.44rem, 4.17vw + 1.4rem, 4.5rem);
-  --font-size-xxxl: clamp(3.05rem, 5.93vw + 1.57rem, 5.3rem);
+  --font-size-xxxl: clamp(2.05rem, 5.93vw + 1.50rem, 5.3rem);
 }
 
 .blog-structure {
@@ -1060,7 +1056,7 @@ h2 {
   grid-gap: 30px;
   width: 100%;
   grid-template-columns: var(--grid-columns);
-  padding: 75px 120px;
+  padding: 75px clamp(80px, 10.91vw + 1.23rem, 200px);
 }
 .blog-structure .section__underlay {
   position: absolute;
@@ -1080,13 +1076,15 @@ h2 {
   writing-mode: tb-rl;
 }
 .blog-structure .section__underlay > .section__underlay-sidebar > .h1__vertical-flag {
+  padding-top: 30px;
   font-family: "LeagueSpartan";
   position: sticky;
+  font-size: var(--font-size-sm);
   top: 50px;
 }
 .blog-structure .callout {
   padding: 12px;
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
 }
 .blog-structure .callout .callout__header {
   display: flex;
@@ -1096,7 +1094,7 @@ h2 {
   width: 24px;
 }
 .blog-structure .table-of-contents {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
   font-size: var(--font-size-base);
 }
 .blog-structure .table-of-contents > a {
@@ -1119,7 +1117,7 @@ h2 {
 }
 .blog-structure .h1 {
   font-family: "Brigada-1918";
-  grid-column: 2/9;
+  grid-column: header-start/header-end;
   text-transform: uppercase;
   font-size: var(--font-size-xxxl);
   position: relative;
@@ -1142,19 +1140,22 @@ h2 {
   text-align: right;
 }
 .blog-structure .h2 {
-  grid-column: 3/7;
-  font-size: var(--font-size-lg);
+  grid-column: var(--grid-central-section);
+  font-size: var(--font-size-xl);
+  line-height: 100%;
 }
 .blog-structure .h3 {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
   font-size: var(--font-size-md);
+  font-weight: 700;
+  line-height: 100%;
 }
 .blog-structure .p {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
   font-size: var(--font-size-base);
 }
 .blog-structure .blockquote {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
   font-style: italic;
 }
 .blog-structure .column-2, .blog-structure .column-3 {
@@ -1168,10 +1169,10 @@ h2 {
   grid-template-columns: var(--grid-columns);
 }
 .blog-structure .ol {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
 }
 .blog-structure .ul {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
 }
 .blog-structure .figure {
   display: grid;
@@ -1187,7 +1188,7 @@ h2 {
   position: sticky;
 }
 .blog-structure .figure iframe, .blog-structure .figure img {
-  grid-column: 3/7;
+  grid-column: var(--grid-central-section);
   width: 100%;
 }
 .blog-structure .ol {
@@ -1196,28 +1197,51 @@ h2 {
 .blog-structure .ul {
   padding: unset;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1500px) {
+  .blog-structure .figure figcaption {
+    grid-column: var(--grid-central-section);
+  }
+}
+@media screen and (max-width: 1200px) {
   .blog-structure {
-    --grid-columns: 70px [content-start] 10px [central-section-start] 5ch 28ch 28ch 5ch [central-section-end content-end];
+    --grid-central-section: 2 / 3;
+    --grid-columns: 1fr [content-start header-start central-section-start] 70ch [central-section-end header-end content-end] 1fr;
   }
   .blog-structure .section-content, .blog-structure .section__underlay {
     padding-right: unset;
+    padding-left: unset;
+    display: grid;
   }
-  .blog-structure .figure figcaption {
-    grid-column: 3/7;
+  .blog-structure .h1__section-number {
+    font-size: var(--font-size-md);
+    line-height: 150%;
+    font-weight: 600;
   }
 }
-@media screen and (max-width: 960px) {
-  .blog-structure .section-content, .blog-structure .section__underlay {
-    display: grid;
+@media screen and (max-width: 850px) {
+  .blog-structure {
+    --grid-columns: [content-start header-start central-section-start] 1fr [central-section-end header-end content-end];
+    --grid-central-section: 1 / 2;
+    --grid-header-section: 1 / 2;
+  }
+  .blog-structure .section-content {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100% - 20px);
   }
   .blog-structure .section__underlay {
     display: none;
   }
+  .blog-structure .h1__section-number {
+    right: unset;
+    left: 0;
+    top: -45px;
+    font-size: var(--font-size-xl);
+  }
 }
-@media (min-width: 1500px) {
+@media (min-width: 1700px) {
   .blog-structure {
-    --grid-columns: 70px [content-start] 85px [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 115px [content-end] 70px;
+    --grid-columns: 70px [header-start content-start] 150px [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 115px [header-end content-end] 70px;
   }
 }
 
