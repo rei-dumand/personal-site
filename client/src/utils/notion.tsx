@@ -16,6 +16,8 @@ import {
   ColumnListBlockObjectResponse,
   TableOfContentsBlockObjectResponse,
   RichTextItemResponse,
+  PageObjectResponse,
+  PartialPageObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 import React, { ReactElement } from 'react'
 import { Client } from '@notionhq/client'
@@ -37,18 +39,29 @@ export function flattenTextBlock(block: RichTextItemResponse[]) {
   return res
 }
 
-function getPageMetaData(post: any): Metadata {
-  const getTopics = (tags: any) => {
-    const allTags = tags.map((tag: any) => ({ name: tag.name, color: tag.color }))
+type SelectPropertyResponse = {
+  id: string;
+  name: string;
+  color: string;
+};
+
+function getPageMetaData(post: PageObjectResponse | PartialPageObjectResponse): Metadata {
+  const getTopics = (tags: SelectPropertyResponse[] | null) => {
+    const allTags = tags?.map((tag: any) => ({ name: tag.name, color: tag.color })) || []
     return allTags
   }
-  return {
-    id: post.id,
-    title: post.properties.Name.title[0].plain_text,
-    published: post.properties.Published.date?.start,
-    updated: post.properties.Updated.date?.start,
-    topics: getTopics(post.properties.Topics.multi_select),
+
+  if ('parent' in post) {
+    return {
+      id: post.id,
+      title: post.properties.Name.type === 'title' ? post.properties.Name.title[0].plain_text : null,
+      published: post.properties.Published.type === 'date' ? post.properties.Published.date?.start : null,
+      updated: post.properties.Updated.type === 'date' ? post.properties.Updated.date?.start : null,
+      topics: getTopics(post.properties.Topics.type === 'multi_select' ? post.properties.Topics.multi_select : null),
+      cover: post.cover?.type === 'external' ? post?.cover?.external?.url : post.cover?.type === 'file' ? post.cover.file.url : null,
+    }
   }
+  return { id: post.id }
 }
 
 /**
@@ -92,8 +105,8 @@ function parseRichText(richTextObj: any, idx = 0) {
 }
 
 declare type TextBlock = Heading1BlockObjectResponse | Heading2BlockObjectResponse | Heading3BlockObjectResponse
-| ParagraphBlockObjectResponse | QuoteBlockObjectResponse | CalloutBlockObjectResponse
-| NumberedListItemBlockObjectResponse | BulletedListItemBlockObjectResponse
+  | ParagraphBlockObjectResponse | QuoteBlockObjectResponse | CalloutBlockObjectResponse
+  | NumberedListItemBlockObjectResponse | BulletedListItemBlockObjectResponse
 
 function parseTextBlock(block: TextBlock, blockType: TextBlock['type']) {
   const arr: (ReactElement | string | null)[] = []
@@ -215,7 +228,7 @@ function parseVideo(block: VideoBlockObjectResponse) {
           allowFullScreen
           title="Embedded YouTube Video"
         />
-        {caption ? <figcaption>{caption}</figcaption> : null}
+        {caption ? <figcaption key={`${block.id}-caption`}>{caption}</figcaption> : null}
       </figure>
     )
   }
@@ -227,7 +240,7 @@ function parseImage(block: ImageBlockObjectResponse) {
     return (
       <figure className="figure" key={block.id}>
         <img src={block.image.external.url} alt={block.image?.caption[0]?.plain_text || 'image missing caption'} />
-        {caption ? <figcaption>{caption}</figcaption> : null}
+        {caption ? <figcaption key={`${block.id}-caption`}>{caption}</figcaption> : null}
       </figure>
     )
   }

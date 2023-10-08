@@ -1,11 +1,7 @@
 import React from 'react'
 import { getPost } from '@/hooks/useNotionClient'
 import { formatJsx } from '@/hooks/useFormatJsx'
-
-declare type PostTopic = {
-  name: string
-  color: string
-}
+import { PostTopic } from '@/index'
 
 export default async function Post({ params }: { params: { slug: string } }) {
   const { slug } = params

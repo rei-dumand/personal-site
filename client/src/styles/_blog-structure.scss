@@ -1,4 +1,3 @@
-
 $grid-columns: 70px [header-start content-start] 1fr [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 1fr [header-end content-end] 70px;
 $grid-columns--lg-desktop: 70px [header-start content-start] 150px [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 115px [header-end content-end] 70px;
 $grid-columns--tablet: 1fr [content-start header-start central-section-start] 70ch [central-section-end header-end content-end] 1fr;
@@ -30,20 +29,67 @@ $grid-central-section--desktop-end: 7;
 }
 
 .blog-structure {
-  padding-top: 50px;
+  // padding-top: 50px;
 
-  * {font-family: 'IBMPlexSans';}
+  * {
+    font-family: 'IBMPlexSans';
+  }
+
+  .cover {
+    height: 250vh;
+    top: 0;
+    position: relative;
+
+    .cover__background {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+    }
+
+    .cover__frontmatter {
+      position: absolute;
+      bottom: 0;
+      // position: relative;
+      // margin-top: 100vh;
+      width: 100%;
+      height: 150vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), transparent);
+      // background-color: rgba(0,0,0,0.5);
+    }
+
+    .cover__frontmatter-published {}
+
+    .cover__frontmatter-title {
+      font-size: var(--font-size-xxxl);
+      font-family: 'brigada-1918';
+      color: white;
+    }
+
+    .cover__frontmatter-topics {}
+
+    .cover__frontmatter-topic {}
+  }
 
   .section-main {
     position: relative;
+
     &#section-main--1 {
       background-color: rgba(255, 255, 0, 1);
     }
+
     &#section-main--2 {
       background-color: cyan;
     }
   }
-  .section-content, .section__underlay {
+
+  .section-content,
+  .section__underlay {
     display: grid;
     position: relative;
     grid-gap: $grid-gap;
@@ -61,8 +107,8 @@ $grid-central-section--desktop-end: 7;
     padding-bottom: 60px;
     user-select: none;
     pointer-events: none;
-    
-    > .section__underlay-sidebar {
+
+    >.section__underlay-sidebar {
       display: block;
       white-space: nowrap;
       grid-column: 1 / 2;
@@ -82,44 +128,49 @@ $grid-central-section--desktop-end: 7;
   .callout {
     padding: 12px;
     grid-column: var(--grid-central-section);
+
     .callout__header {
       display: flex;
       gap: 4px;
+
       img {
         width: 24px;
       }
     }
   }
+
   .table-of-contents {
     grid-column: var(--grid-central-section);
     font-size: var(--font-size-base);
-    
-    > a {
+
+    >a {
       display: block;
-      > div {
+
+      >div {
         padding: .2em .5em;
 
       }
     }
-    > a:hover {
+
+    >a:hover {
       background-color: $grey-200;
       border-radius: 8px;
     }
 
-    .table-of-contents__label--heading_1 {
+    .table-of-contents__label--heading_1 {}
 
-    }
     .table-of-contents__label--heading_2 {
       padding-left: 2em;
       font-size: 0.8em;
-      
+
     }
+
     .table-of-contents__label--heading_3 {
       padding-left: 4em;
       font-size: 0.8em;
     }
   }
-  
+
   .h1 {
     font-family: 'Brigada-1918';
 
@@ -129,16 +180,18 @@ $grid-central-section--desktop-end: 7;
     position: relative;
     vertical-align: top;
     line-height: 100%;
-    > * {
+
+    >* {
       font-family: 'Lexend';
       line-height: 0%;
     }
   }
+
   .h1__section-number {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     position: absolute;
-    right:0;
+    right: 0;
     font-family: 'Brigada-1918';
     font-size: var(--font-size-xxxl);
 
@@ -146,39 +199,47 @@ $grid-central-section--desktop-end: 7;
     line-height: 100%;
     text-align: right;
   }
-  
+
   .h2 {
     grid-column: var(--grid-central-section);
     font-size: var(--font-size-xl);
     line-height: 100%;
   }
+
   .h3 {
     grid-column: var(--grid-central-section);
     font-size: var(--font-size-md);
     font-weight: 700;
     line-height: 100%;
   }
+
   .p {
     grid-column: var(--grid-central-section);
     font-size: var(--font-size-base);
   }
+
   .blockquote {
     grid-column: var(--grid-central-section);
     font-style: italic;
   }
-  .column-2, .column-3 {
+
+  .column-2,
+  .column-3 {
     grid-column: 1 / -1;
     display: grid;
     grid-gap: $grid-gap;
-    > div {
+
+    >div {
       display: grid;
       grid-gap: $grid-gap;
       grid-template-columns: var(--grid-columns);
     }
   }
+
   .ol {
     grid-column: var(--grid-central-section);
   }
+
   .ul {
     grid-column: var(--grid-central-section);
   }
@@ -190,13 +251,16 @@ $grid-central-section--desktop-end: 7;
     grid-row-gap: 0.5em;
 
     grid-column: 1 / -1;
+
     figcaption {
       height: fit-content;
       grid-column: 7 / 9;
       top: $sticky-limit;
       position: sticky;
     }
-    iframe, img {
+
+    iframe,
+    img {
       grid-column: var(--grid-central-section);
       width: 100%;
     }
@@ -205,10 +269,11 @@ $grid-central-section--desktop-end: 7;
   .ol {
     padding: unset;
   }
+
   .ul {
     padding: unset;
   }
-    
+
   @media screen and (max-width: 1500px) {
     .figure {
       figcaption {
@@ -220,20 +285,22 @@ $grid-central-section--desktop-end: 7;
   @media screen and (max-width: 1200px) {
     --grid-central-section: #{$grid-central-section--tablet-start} / #{$grid-central-section--tablet-end};
     --grid-columns: #{$grid-columns--tablet};
-    .section-content, .section__underlay {
+
+    .section-content,
+    .section__underlay {
       padding-right: unset;
       padding-left: unset;
       display: grid;
     }
-  
+
     .h1__section-number {
       font-size: var(--font-size-md);
       line-height: 150%;
       font-weight: 600;
     }
-    
+
   }
-  
+
   @media screen and (max-width: 850px) {
     --grid-columns: #{$grid-columns--mobile};
     --grid-central-section: #{$grid-central-section--mobile-start} / #{$grid-central-section--mobile-end};
@@ -244,9 +311,11 @@ $grid-central-section--desktop-end: 7;
       margin-right: 10px;
       width: calc(100% - 20px);
     }
+
     .section__underlay {
       display: none;
     }
+
     .h1__section-number {
       right: unset;
       left: 0;

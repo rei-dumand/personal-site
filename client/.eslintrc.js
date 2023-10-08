@@ -9,6 +9,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
     'airbnb-typescript',
+    'prettier',
   ],
   parserOptions: {
     ...baseConfig.parserOptions,
@@ -45,6 +46,5 @@ module.exports = {
     'react/require-default-props': 0,
     'react/no-array-index-key': 0,
     'react/jsx-indent': ['error', 2],
-
   },
 }

@@ -15,12 +15,18 @@ export declare type Row = {
   url?: string
 }
 
+export declare type PostTopic = {
+  name: string
+  color: string
+}
+
 export declare type Metadata = {
   id: string,
-  title: string
-  published: string
-  updated: string,
-  topics: string[],
+  title?: string | null
+  published?: string | undefined | null
+  updated?: string | undefined | null,
+  topics?: PostTopic[] | undefined | null,
+  cover?: string | undefined | null,
 }
 
 export declare type Post = {

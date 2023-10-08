@@ -295,7 +295,8 @@ h5 {
   margin: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: fit-content;
   background-color: white;
@@ -319,6 +320,7 @@ code {
 
 html,
 body {
+  overscroll-behavior: none;
   padding: 0;
   margin: 0;
 }
@@ -1035,11 +1037,36 @@ h2 {
   --font-size-xxxl: clamp(2.05rem, 5.93vw + 1.50rem, 5.3rem);
 }
 
-.blog-structure {
-  padding-top: 50px;
-}
 .blog-structure * {
   font-family: "IBMPlexSans";
+}
+.blog-structure .cover {
+  height: 250vh;
+  top: 0;
+  position: relative;
+}
+.blog-structure .cover .cover__background {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+.blog-structure .cover .cover__frontmatter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), transparent);
+}
+.blog-structure .cover .cover__frontmatter-title {
+  font-size: var(--font-size-xxxl);
+  font-family: "brigada-1918";
+  color: white;
 }
 .blog-structure .section-main {
   position: relative;
@@ -1050,7 +1077,8 @@ h2 {
 .blog-structure .section-main#section-main--2 {
   background-color: cyan;
 }
-.blog-structure .section-content, .blog-structure .section__underlay {
+.blog-structure .section-content,
+.blog-structure .section__underlay {
   display: grid;
   position: relative;
   grid-gap: 30px;
@@ -1158,12 +1186,14 @@ h2 {
   grid-column: var(--grid-central-section);
   font-style: italic;
 }
-.blog-structure .column-2, .blog-structure .column-3 {
+.blog-structure .column-2,
+.blog-structure .column-3 {
   grid-column: 1/-1;
   display: grid;
   grid-gap: 30px;
 }
-.blog-structure .column-2 > div, .blog-structure .column-3 > div {
+.blog-structure .column-2 > div,
+.blog-structure .column-3 > div {
   display: grid;
   grid-gap: 30px;
   grid-template-columns: var(--grid-columns);
@@ -1187,7 +1217,8 @@ h2 {
   top: 30px;
   position: sticky;
 }
-.blog-structure .figure iframe, .blog-structure .figure img {
+.blog-structure .figure iframe,
+.blog-structure .figure img {
   grid-column: var(--grid-central-section);
   width: 100%;
 }
@@ -1207,7 +1238,8 @@ h2 {
     --grid-central-section: 2 / 3;
     --grid-columns: 1fr [content-start header-start central-section-start] 70ch [central-section-end header-end content-end] 1fr;
   }
-  .blog-structure .section-content, .blog-structure .section__underlay {
+  .blog-structure .section-content,
+  .blog-structure .section__underlay {
     padding-right: unset;
     padding-left: unset;
     display: grid;

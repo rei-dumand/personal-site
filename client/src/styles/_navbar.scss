@@ -16,15 +16,16 @@
 }
 
 @keyframes fadeIn {
-  0% {
-  }
+  0% {}
+
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
+
 .navItems {
   position: fixed;
-  width: 100%; 
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -65,9 +66,9 @@
   mix-blend-mode: difference;
   margin-right: 15px;
   transition: transform 100ms;
-  transform: translate3d(5px, 0,0);
+  transform: translate3d(5px, 0, 0);
 }
 
 .navbarLeft:hover .backArrow {
-  transform: translate3d(0px, 0,0);
+  transform: translate3d(0px, 0, 0);
 }
