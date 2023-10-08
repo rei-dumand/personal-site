@@ -26,6 +26,7 @@
     "next-images": "^1.8.5",
     "notion-to-md": "^2.6.0",
     "react": "18.2.0",
+    "react-dom": "^18.2.0",
     "sass": "^1.62.1",
     "sharp": "^0.31.3",
     "webpack": "^5.81.0"
