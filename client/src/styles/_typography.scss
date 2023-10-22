@@ -24,6 +24,7 @@
   font-family: 'LeagueSpartan';
   src: url('./fonts/LeagueSpartan-VF.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Lexend';
   src: url('./fonts/Lexend-VariableFont_wght.ttf') format('truetype');
@@ -35,82 +36,121 @@
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-BoldItalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'IBMPlexSans';
   src: url('./fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-SemiBoldItalic.ttf") format("truetype");
   font-weight: 600;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'IBMPlexSans';
   src: url('./fonts/IBMPlexSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'IBMPlexSans';
   src: url('./fonts/IBMPlexSans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-ExtraLightItalic.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-ExtraLightItalic.ttf") format("truetype");
   font-weight: 200;
   font-style: italic;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-ThinItalic.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
 }
+
 @font-face {
   font-family: "IBMPlexSans";
   src: url("./fonts/IBMPlexSans-ThinItalic.ttf") format("truetype");
   font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "N27";
+  src: url("./fonts/N27-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "N27";
+  src: url("./fonts/N27-RegularItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "HK-Grotesk";
+  src: url("./fonts/HankenGrotesk-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HK-Grotesk";
+  src: url("./fonts/HankenGrotesk-Italic-VariableFont_wght.ttf") format("truetype");
   font-style: italic;
 }
 
@@ -129,39 +169,53 @@
 }
 
 .typography--small {
-  &, * {
+
+  &,
+  * {
     font-size: 10px;
   }
 }
+
 .typography--bold {
-  &, * {
+
+  &,
+  * {
     font-weight: 700;
   }
 }
+
 .typography--semi-bold {
-  &, * {
+
+  &,
+  * {
     font-weight: 700;
   }
 }
+
 .typography--large {
-  &, * {
+
+  &,
+  * {
     @extend .typography--bold;
-  font-size: 1.5rem;
-  line-height: 120%;
-}
+    font-size: 1.5rem;
+    line-height: 120%;
+  }
 }
 
 * {
   @extend .typography;
 }
-h1 {
-  @extend .typography--semi-bold;
-}
+
+// h1 {
+//   @extend .typography--semi-bold;
+// }
+
 h4 {
   @extend .typography--small;
   @extend .typography--bold;
   color: $grey-500;
 }
+
 h5 {
   @extend .typography--small;
   @extend .typography--bold;

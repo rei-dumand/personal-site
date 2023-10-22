@@ -14,20 +14,21 @@ import {
   CodeBlockObjectResponse,
   ColumnBlockObjectResponse,
   ColumnListBlockObjectResponse,
-  TableOfContentsBlockObjectResponse,
+  // TableOfContentsBlockObjectResponse,
   RichTextItemResponse,
   PageObjectResponse,
   PartialPageObjectResponse,
+  BookmarkBlockObjectResponse,
+  LinkPreviewBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 import React, { ReactElement } from 'react'
 import { Client } from '@notionhq/client'
 import 'highlight.js/styles/Pojoaque.css'
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
+import { HTMLElement, parse } from 'node-html-parser'
 import parseClasses from '@/utils/parseClasses'
-import type { Metadata, Post } from '../index'
-
-declare type TableOfContents = { id: string, label: string, header_type: 'heading_1' | 'heading_2' | 'heading_3' }[]
+import type { Metadata, Post, TableOfContents } from '../index'
 
 hljs.registerLanguage('javascript', javascript)
 
@@ -59,6 +60,7 @@ function getPageMetaData(post: PageObjectResponse | PartialPageObjectResponse): 
       updated: post.properties.Updated.type === 'date' ? post.properties.Updated.date?.start : null,
       topics: getTopics(post.properties.Topics.type === 'multi_select' ? post.properties.Topics.multi_select : null),
       cover: post.cover?.type === 'external' ? post?.cover?.external?.url : post.cover?.type === 'file' ? post.cover.file.url : null,
+      abstract: post.properties.Abstract.type === 'rich_text' ? flattenTextBlock(post.properties.Abstract.rich_text) : null,
     }
   }
   return { id: post.id }
@@ -202,6 +204,111 @@ async function parseCallout(notionClient: Client, block: CalloutBlockObjectRespo
     </div>
   )
 }
+
+
+async function fetchUrlContent(url: string) {
+  const response = await fetch(url, { cache: 'no-store' })
+  const htmlContent = await response.text()
+
+  const doc = parse(htmlContent)
+  return doc
+}
+function getDomain(url: string) {
+  const [domain, ...slug] = url.replace(/^https?:\/\//, '').split('/')
+  return { domain, slug: slug.join('/') }
+}
+async function getFavicon(url: string, document: HTMLElement) {
+  const linkElements = document.querySelectorAll('link[rel~="icon"], link[rel~="apple-touch-icon"], link[rel~="shortcut icon"]')
+  const preferredSizes = ['64x64', '48x48', '32x32', 'shortcut icon', null]
+
+  let faviconUrl = null
+  for (const size of preferredSizes) {
+    for (const linkElement of linkElements) {
+      const sizes = linkElement.getAttribute('sizes')
+      if (!size || sizes?.includes(size)) {
+        faviconUrl = linkElement.getAttribute('href')
+        break
+      }
+    }
+    if (faviconUrl) break
+  }
+
+  faviconUrl = faviconUrl?.startsWith('/') ? `https://${getDomain(url).domain}/${encodeURIComponent(faviconUrl.slice(1))}` : faviconUrl
+  if (faviconUrl) {
+    const http = await fetch(faviconUrl, { cache: 'no-store' })
+    if (http.status === 404) faviconUrl = null
+  }
+  return faviconUrl
+}
+
+function getTitle(document: HTMLElement) {
+  return document.querySelector('title')?.textContent
+}
+function getDescription(document: HTMLElement) {
+  return document.querySelector('meta[name="description"]')?.getAttribute('content')
+}
+async function buildPreview(url: string, document: HTMLElement) {
+  const title = getTitle(document)
+  const metaDescription = getDescription(document)
+  const faviconUrl = await getFavicon(url, document)
+
+  return (
+    <a target='_blank' rel="noopener noreferrer" className='preview-card bookmark' href={url}>
+      <div className='bookmark__title'>{title}</div>
+      <div className='bookmark__description'>{metaDescription}</div>
+      <div className='bookmark__hyperlink'>
+        {faviconUrl ? <img width={28} height={28} className='bookmark__favicon' src={faviconUrl} alt="" /> : null}
+        <span className='bookmark__url'>{url}</span>
+      </div>
+    </a>
+  )
+}
+
+async function buildGithubPreview(url: string, document: HTMLElement) {
+  const routePattern = document.querySelector('meta[name="route-pattern"]')?.getAttribute('content')
+  const title = getTitle(document)
+  const { slug } = getDomain(url)
+
+  // if (routePattern === '/:user_id(.:format)') {
+  //   return <>return a user profile</>
+  // }
+  if (routePattern === '/:user_id/:repository') {
+
+    const sanitisedTitle = title?.replace('GitHub - ', '') || ''
+    const [user, repository] = slug.split('/')
+    const [, repositoryDescription] = sanitisedTitle.split(':')
+    const avatarUrl = `https://github.com/${user}.png`
+    return (
+      <a target='_blank' rel="noopener noreferrer" className='preview-card preview-link preview-link--github' href={url}>
+        {avatarUrl ? <img width={36} height={36} className='preview-link__icon' src={avatarUrl} alt="" /> : null}
+        <div>
+          <div className='preview-link__title'>{repository}</div>
+          <span className='preview-link__user'>{user}</span>
+          <div className='preview-link__description'>{repositoryDescription}</div>
+        </div>
+      </a>
+    )
+  }
+  return buildPreview(url, document)
+}
+
+async function parseLinkPreview(block: LinkPreviewBlockObjectResponse) {
+  const { url } = block[block.type]
+  const { domain } = getDomain(url)
+
+  const document = await fetchUrlContent(url)
+
+  if (domain === 'github.com') return buildGithubPreview(url, document)
+  return buildPreview(url, document)
+}
+
+async function parseBookmark(block: BookmarkBlockObjectResponse) {
+  const { url } = block[block.type]
+  const document = await fetchUrlContent(url)
+  return buildPreview(url, document)
+}
+
+
 function parseCaption(captionGroup: RichTextItemResponse[]) {
   if (!captionGroup.length) return null
   const res: (ReactElement | string)[] = []
@@ -270,11 +377,11 @@ function parseCode(block: CodeBlockObjectResponse) {
   const highlightedCode = hljs.highlight(codeString, { language }).value
   return <pre key={block.id} dangerouslySetInnerHTML={{ __html: highlightedCode }} />
 }
-function parseTableOfContents(block: TableOfContentsBlockObjectResponse) {
-  return <div id={block.id} key={block.id} className="table-of-contents">To Fill</div>
-}
+// function parseTableOfContents(block: TableOfContentsBlockObjectResponse) {
+//   return <div id={block.id} key={block.id} className="table-of-contents">To Fill</div>
+// }
 
-let tocId: string
+// let tocId: string
 async function blocksToJSX(
   notionClient: Client,
   blockArr: (BlockObjectResponse)[],
@@ -286,7 +393,7 @@ async function blocksToJSX(
   let bulletedListArr: ReactElement[] = []
   for (const [idx, block] of blockArr.entries()) {
     if (block.type !== 'bulleted_list_item' && bulletedListArr.length) {
-      result.push(<ul className="ul" key={idx}>{numberedListArr}</ul>)
+      result.push(<ul className="ul" key={idx}>{bulletedListArr}</ul>)
       bulletedListArr = []
     }
     if (block.type !== 'numbered_list_item' && numberedListArr.length) {
@@ -338,11 +445,17 @@ async function blocksToJSX(
         result.push(parseCode(block))
         break
       case 'table_of_contents':
-        tocId = block.id
-        result.push(parseTableOfContents(block))
+        // tocId = block.id
+        // result.push(parseTableOfContents(block))
+        break
+      case 'bookmark':
+        result.push(await parseBookmark(block))
+        break
+      case 'link_preview':
+        result.push(await parseLinkPreview(block))
         break
       default:
-        result.push(<div>{block.type} is not currently supported.</div>)
+        result.push(<div className='unsupported'>{block.type} is not currently supported.</div>)
     }
   }
 
@@ -352,26 +465,26 @@ async function blocksToJSX(
   return result
 }
 
-function findAndAmendElement(
-  elements: (ReactElement | null)[],
-  targetId: string,
-  newElement: ReactElement,
-): (ReactElement | null)[] {
-  return elements.map(element => {
-    if (element?.props && element.props.id === targetId) {
-      return React.cloneElement((element as ReactElement), {}, newElement)
-    }
-    if (element?.props && element.props.children) {
-      const newChildren = findAndAmendElement(
-        Array.isArray(element.props.children) ? element.props.children : [element.props.children],
-        targetId,
-        newElement,
-      )
-      return React.cloneElement(element, {}, newChildren)
-    }
-    return element
-  })
-}
+// function findAndAmendElement(
+//   elements: (ReactElement | null)[],
+//   targetId: string,
+//   newElement: ReactElement,
+// ): (ReactElement | null)[] {
+//   return elements.map(element => {
+//     if (element?.props && element.props.id === targetId) {
+//       return React.cloneElement((element as ReactElement), {}, newElement)
+//     }
+//     if (element?.props && element.props.children) {
+//       const newChildren = findAndAmendElement(
+//         Array.isArray(element.props.children) ? element.props.children : [element.props.children],
+//         targetId,
+//         newElement,
+//       )
+//       return React.cloneElement(element, {}, newChildren)
+//     }
+//     return element
+//   })
+// }
 
 export async function getPost(notionClient: Client, slug: string): Promise<Post | null> {
   if (process.env.DATABASE_ID) {
@@ -393,13 +506,10 @@ export async function getPost(notionClient: Client, slug: string): Promise<Post 
     const tableOfContents: TableOfContents = []
     const JSXBlocks = await blocksToJSX(notionClient, blocks, tableOfContents)
 
-    const tocElement = <>{tableOfContents.map(c => <a key={`#${c.id}`} href={`#${c.id}`}><div className={`table-of-contents__label--${c.header_type}`}>{c.label}</div></a>)}</>
-
-    const updatedElements = findAndAmendElement(JSXBlocks, tocId, tocElement)
-
     return {
       metadata,
-      JSXBlocks: updatedElements,
+      JSXBlocks,
+      tableOfContents,
     }
   }
   return null

@@ -250,6 +250,28 @@
   font-weight: 100;
   font-style: italic;
 }
+@font-face {
+  font-family: "N27";
+  src: url("./fonts/N27-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "N27";
+  src: url("./fonts/N27-RegularItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "HK-Grotesk";
+  src: url("./fonts/HankenGrotesk-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+}
+@font-face {
+  font-family: "HK-Grotesk";
+  src: url("./fonts/HankenGrotesk-Italic-VariableFont_wght.ttf") format("truetype");
+  font-style: italic;
+}
 .typography, * {
   font-family: "Brygada 1918";
   line-height: 150%;
@@ -264,19 +286,28 @@
   color: #2b2b2c;
 }
 
-.typography--small, h5, h4, .typography--small *, h5 *, h4 * {
+.typography--small, h5, h4,
+.typography--small *,
+h5 *,
+h4 * {
   font-size: 10px;
 }
 
-.typography--bold, h5, h4, .typography--large, .typography--large *, .typography--bold *, h5 *, h4 * {
+.typography--bold, h5, h4, .typography--large,
+.typography--large *,
+.typography--bold *,
+h5 *,
+h4 * {
   font-weight: 700;
 }
 
-.typography--semi-bold, h1, .typography--semi-bold *, h1 * {
+.typography--semi-bold,
+.typography--semi-bold * {
   font-weight: 700;
 }
 
-.typography--large, .typography--large * {
+.typography--large,
+.typography--large * {
   font-size: 1.5rem;
   line-height: 120%;
 }
@@ -1025,7 +1056,7 @@ h2 {
 }
 
 :root {
-  --grid-columns: 70px [header-start content-start] 1fr [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 1fr [header-end content-end] 70px;
+  --grid-columns: 70px [header-start content-start] 1fr [central-section-start list-start] 5ch 28ch 28ch 5ch [central-section-end list-end] 1fr [header-end content-end] 70px;
   --grid-central-section: 3 / 7;
   --grid-header-section: 3 / 7;
   --font-size-sm: clamp(0.8rem, 0.59vw + 0.65rem, 1.13rem);
@@ -1035,49 +1066,170 @@ h2 {
   --font-size-xl: clamp(1.95rem, 2.91vw + 1.23rem, 3.55rem);
   --font-size-xxl: clamp(2.44rem, 4.17vw + 1.4rem, 4.5rem);
   --font-size-xxxl: clamp(2.05rem, 5.93vw + 1.50rem, 5.3rem);
+  --font-size-xxxxl: clamp(2.55rem, 7.2vw + 1.70rem, 8rem);
 }
 
 .blog-structure * {
-  font-family: "IBMPlexSans";
+  font-family: "HK-Grotesk";
 }
 .blog-structure .cover {
-  height: 300vh;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 11.54 16"><polygon style="fill:%23BBBBBB" points="10.5 8.83 6.48 13.16 6.48 0 5.07 0 5.07 13.17 1.03 8.83 0 9.79 5.77 16 11.54 9.79 10.5 8.83"/></svg>') 24 24, pointer;
+  height: 100vh;
   position: relative;
+  overflow: clip;
 }
 .blog-structure .cover .cover__background {
   position: sticky;
   object-fit: cover;
   top: 0;
   width: 100%;
-  height: 100vh;
-  z-index: -1;
+  height: 200vh;
+  display: unset;
 }
 .blog-structure .cover .cover__frontmatter {
   position: absolute;
-  bottom: 0;
   width: 100%;
-  height: 250vh;
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1), transparent);
+  height: 200vh;
+  background-color: rgb(32, 67, 41);
 }
 .blog-structure .cover .cover__frontmatter-sticky {
   position: sticky;
-  top: 35vh;
-  margin-top: 60vh;
+  top: 0;
   flex-direction: column;
+  height: 100vh;
   display: flex;
+  align-self: flex-start;
   align-items: center;
-  margin-bottom: 40vh;
-}
-.blog-structure .cover .cover__frontmatter-published {
-  font-size: var(--font-size-base);
-  font-family: "lexend";
-  color: white;
-  font-weight: 200;
+  justify-content: center;
 }
 .blog-structure .cover .cover__frontmatter-title {
-  font-size: var(--font-size-xxxl);
-  font-family: "brigada-1918";
+  font-size: var(--font-size-xxxxl);
+  font-family: "N27";
+  text-transform: uppercase;
   color: white;
+}
+.blog-structure .metadata-wrapper {
+  overflow: hidden;
+}
+.blog-structure .metadata {
+  background-color: black;
+  color: white;
+  cursor: default;
+  display: flex;
+  transform: translateX(-1px);
+  width: calc(100% + 2px);
+  border-width: 1px 0 0 1px;
+  border-color: #ECEDED;
+  border-style: solid;
+  flex-wrap: wrap;
+}
+.blog-structure .metadata .metadata__item {
+  height: fit-content;
+}
+.blog-structure .metadata .metadata__abstract,
+.blog-structure .metadata .metadata__published,
+.blog-structure .metadata .metadata__updated,
+.blog-structure .metadata .metadata__topics {
+  flex: 1;
+  padding: 6px 14px;
+  border-width: 0 1px 1px 0;
+  border-color: #ECEDED;
+  border-style: solid;
+}
+.blog-structure .metadata .metadata__abstract .metadata__item,
+.blog-structure .metadata .metadata__published .metadata__item,
+.blog-structure .metadata .metadata__updated .metadata__item,
+.blog-structure .metadata .metadata__topics .metadata__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.blog-structure .metadata .metadata__abstract .metadata__item > :first-child,
+.blog-structure .metadata .metadata__published .metadata__item > :first-child,
+.blog-structure .metadata .metadata__updated .metadata__item > :first-child,
+.blog-structure .metadata .metadata__topics .metadata__item > :first-child {
+  font-weight: 600;
+}
+.blog-structure .metadata .metadata__abstract .metadata__item svg,
+.blog-structure .metadata .metadata__published .metadata__item svg,
+.blog-structure .metadata .metadata__updated .metadata__item svg,
+.blog-structure .metadata .metadata__topics .metadata__item svg {
+  align-self: center;
+  height: 14px;
+  fill: white;
+}
+.blog-structure .metadata .metadata__abstract {
+  flex-grow: 3;
+  flex-basis: 60ch;
+  font-size: var(--font-size-base);
+}
+.blog-structure .metadata .metadata__abstract .metadata__abstract-title {
+  display: flex;
+  gap: 8px;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+.blog-structure .metadata .metadata__abstract .metadata__abstract-title svg {
+  align-self: center;
+  width: 16px;
+  fill: white;
+}
+.blog-structure .metadata .metadata__abstract .metadata__item {
+  display: block;
+  font-weight: 400;
+}
+.blog-structure .metadata .metadata__published,
+.blog-structure .metadata .metadata__updated,
+.blog-structure .metadata .metadata__topics {
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+.blog-structure .metadata .metadata__topic {
+  border-radius: 20px;
+  padding: 0px 12px;
+  border: 1px solid;
+  border-color: var(--color);
+}
+.blog-structure .table-of-contents {
+  background-color: black;
+  color: white;
+  border-bottom: 1px solid #ECEDED;
+  padding-bottom: 12px;
+  cursor: default;
+  grid-column: var(--grid-central-section);
+  font-size: var(--font-size-base);
+}
+.blog-structure .table-of-contents .table-of-contents__title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+  padding: 4px 14px;
+}
+.blog-structure .table-of-contents svg {
+  align-self: center;
+  width: 16px;
+  fill: white;
+}
+.blog-structure .table-of-contents > a {
+  display: block;
+}
+.blog-structure .table-of-contents > a > div {
+  padding: 0.2em 0.5em;
+}
+.blog-structure .table-of-contents > a:hover {
+  background-color: #ECEDED;
+}
+.blog-structure .table-of-contents .table-of-contents__label--heading_1 {
+  padding-left: 14px;
+}
+.blog-structure .table-of-contents .table-of-contents__label--heading_2 {
+  padding-left: calc(14px + 2em);
+  font-size: 0.8em;
+}
+.blog-structure .table-of-contents .table-of-contents__label--heading_3 {
+  padding-left: calc(14px + 4em);
+  font-size: 0.8em;
 }
 .blog-structure .section-main {
   position: relative;
@@ -1115,7 +1267,7 @@ h2 {
   writing-mode: tb-rl;
 }
 .blog-structure .section__underlay > .section__underlay-sidebar > .h1__vertical-flag {
-  padding-top: 30px;
+  padding-top: 3em;
   font-family: "LeagueSpartan";
   position: sticky;
   font-size: var(--font-size-sm);
@@ -1132,30 +1284,57 @@ h2 {
 .blog-structure .callout .callout__header img {
   width: 24px;
 }
-.blog-structure .table-of-contents {
-  grid-column: var(--grid-central-section);
-  font-size: var(--font-size-base);
-}
-.blog-structure .table-of-contents > a {
-  display: block;
-}
-.blog-structure .table-of-contents > a > div {
-  padding: 0.2em 0.5em;
-}
-.blog-structure .table-of-contents > a:hover {
-  background-color: #ECEDED;
+.blog-structure .preview-card {
+  font-size: var(--font-size-sm);
+  background-color: rgba(255, 255, 255, 0.05);
+  background: radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 70.71%), radial-gradient(circle at 6.7% 75%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 70.71%), radial-gradient(circle at 93.3% 75%, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 70.71%), rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #77777A;
   border-radius: 8px;
+  padding: 12px;
+  transition: all 250ms;
+  cursor: pointer;
 }
-.blog-structure .table-of-contents .table-of-contents__label--heading_2 {
-  padding-left: 2em;
-  font-size: 0.8em;
+.blog-structure .preview-card:hover {
+  background: unset;
+  background-color: rgba(255, 255, 255, 0.6);
 }
-.blog-structure .table-of-contents .table-of-contents__label--heading_3 {
-  padding-left: 4em;
-  font-size: 0.8em;
+.blog-structure .bookmark {
+  grid-column: var(--grid-central-section);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.blog-structure .bookmark .bookmark__title {
+  font-weight: 500;
+}
+.blog-structure .bookmark .bookmark__hyperlink {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.blog-structure .preview-link--github {
+  grid-column: var(--grid-central-section);
+  display: flex;
+  gap: 12px;
+}
+.blog-structure .preview-link--github .preview-link__title {
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  line-height: 100%;
+}
+.blog-structure .preview-link--github .preview-link__user {
+  color: #77777A;
+}
+.blog-structure .preview-link--github .preview-link__icon {
+  border-radius: 50%;
+  border: 1px solid #ECEDED;
+}
+.blog-structure .unsupported {
+  grid-column: var(--grid-central-section);
 }
 .blog-structure .h1 {
-  font-family: "Brigada-1918";
+  font-family: "N27";
   grid-column: header-start/header-end;
   text-transform: uppercase;
   font-size: var(--font-size-xxxl);
@@ -1168,11 +1347,12 @@ h2 {
   line-height: 0%;
 }
 .blog-structure .h1__section-number {
+  font-variant-numeric: unset;
   grid-column: 1/2;
   grid-row: 1/2;
   position: absolute;
   right: 0;
-  font-family: "Brigada-1918";
+  font-family: "N27";
   font-size: var(--font-size-xxxl);
   font-weight: 200;
   line-height: 100%;
@@ -1193,9 +1373,21 @@ h2 {
   grid-column: var(--grid-central-section);
   font-size: var(--font-size-base);
 }
+.blog-structure .p a {
+  color: #5A5A5E;
+  text-decoration: underline;
+}
+.blog-structure .p a:hover {
+  color: black;
+  font-style: italic;
+}
 .blog-structure .blockquote {
   grid-column: var(--grid-central-section);
   font-style: italic;
+}
+.blog-structure .blockquote::before {
+  content: '"';
+  grid-column: 2/3;
 }
 .blog-structure .column-2,
 .blog-structure .column-3 {
@@ -1210,10 +1402,22 @@ h2 {
   grid-template-columns: var(--grid-columns);
 }
 .blog-structure .ol {
-  grid-column: var(--grid-central-section);
+  grid-column: list-start/list-end;
+  font-size: var(--font-size-base);
+  list-style-position: inside;
+  list-style-type: none;
+  counter-reset: item;
+  margin-left: 2rem;
+}
+.blog-structure .ol li::before {
+  content: counters(item, ".") ". ";
+  counter-increment: item;
 }
 .blog-structure .ul {
-  grid-column: var(--grid-central-section);
+  list-style-position: inside;
+  grid-column: list-start/list-end;
+  font-size: var(--font-size-base);
+  margin-left: 2rem;
 }
 .blog-structure .figure {
   display: grid;
@@ -1231,6 +1435,9 @@ h2 {
 .blog-structure .figure iframe,
 .blog-structure .figure img {
   grid-column: var(--grid-central-section);
+  border-radius: 8px;
+  box-shadow: 0 14px 32px rgba(20, 20, 40, 0.25), 15px 15px 40px rgba(20, 20, 40, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
 }
 .blog-structure .ol {
@@ -1247,7 +1454,7 @@ h2 {
 @media screen and (max-width: 1200px) {
   .blog-structure {
     --grid-central-section: 2 / 3;
-    --grid-columns: 1fr [content-start header-start central-section-start] 70ch [central-section-end header-end content-end] 1fr;
+    --grid-columns: 1fr [content-start header-start central-section-start list-start] 70ch [central-section-end header-end content-end list-end] 1fr;
   }
   .blog-structure .section-content,
   .blog-structure .section__underlay {
@@ -1263,7 +1470,7 @@ h2 {
 }
 @media screen and (max-width: 850px) {
   .blog-structure {
-    --grid-columns: [content-start header-start central-section-start] 1fr [central-section-end header-end content-end];
+    --grid-columns: [content-start header-start central-section-start list-start] 1fr [central-section-end header-end content-end list-end];
     --grid-central-section: 1 / 2;
     --grid-header-section: 1 / 2;
   }
@@ -1284,7 +1491,7 @@ h2 {
 }
 @media (min-width: 1700px) {
   .blog-structure {
-    --grid-columns: 70px [header-start content-start] 150px [central-section-start] 5ch 28ch 28ch 5ch [central-section-end] 115px [header-end content-end] 70px;
+    --grid-columns: 70px [header-start content-start] 150px [central-section-start list-start] 5ch 28ch 28ch 5ch [central-section-end list-end] 115px [header-end content-end] 70px;
   }
 }
 
